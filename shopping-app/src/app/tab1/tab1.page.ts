@@ -10,6 +10,8 @@ export class Tab1Page {
 
   Categories: Category[] = [];
 
+
+
   names: string[] = ['Bebidas','Snacks','Lacteos y Huevos','Frutas y Verduras','Panaderia y Reposteria','Carnes','Limpieza',
                     'Medicinas','Comida Preparada','Licores']
 
@@ -27,6 +29,10 @@ export class Tab1Page {
   
     }
     console.log(this.Categories);
+  }
+
+  goToItems(category:Category){
+    console.log(category);
   }
 
 }

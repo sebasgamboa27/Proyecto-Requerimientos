@@ -4,7 +4,7 @@ import { Tab2Page } from './tab2.page';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'cart',
     component: Tab2Page,
   }
 ];
