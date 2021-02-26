@@ -20,6 +20,8 @@ export class CartService {
   deleteItem(item:Item){
     const indexOfDeleted = this.itemsInCart.indexOf(item);
 
+    item.Count = 0;
+
     if(indexOfDeleted > -1){
       this.itemsInCart.splice(indexOfDeleted,1);
       this.length -= 1;
@@ -28,5 +30,13 @@ export class CartService {
     console.log(this.itemsInCart);
 
    
+  }
+
+  deleteAll(){
+    this.itemsInCart.forEach(item => {
+      item.Count = 0;
+    });
+    this.itemsInCart = [];
+    this.length = 0;
   }
 }
