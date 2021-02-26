@@ -7,17 +7,25 @@
 <ion-content class="ion-padding">
 
   <ion-grid>
-    <ion-row>
-      <ion-col text-center *ngFor="let item of items">
-        <p>{{item.Name}}</p>
-        <ion-button shape="round">Round Button</ion-button>
-      </ion-col>
-    </ion-row>
+    <ion-list>
+      <ion-list-header>
+        {{Title}} Disponibles
+      </ion-list-header>
+      <ion-item *ngFor="let item of items">
+        <ion-label>
+          <h2>{{item.Name}}</h2>
+        </ion-label>
+          <ion-button class="ml-3 mr-3" shape="round" size="small" color="danger" (click)="deleteItem(item)"><i class="fas fa-minus"></i></ion-button>
+          <p class="ml-3 mr-3">{{item.Count}}</p>
+          <ion-button class="ml-3 mr-3" shape="round" size="small" color="success" (click)="addItem(item)"><i class="fas fa-plus"></i></ion-button>
+      </ion-item>
+    </ion-list>
     <ion-row>
       <ion-col text-center>
-        <ion-button (click)="closeModal()">Close Modal</ion-button>
+        <ion-button color="" (click)="closeModal()">Close</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
 
+  
 </ion-content>

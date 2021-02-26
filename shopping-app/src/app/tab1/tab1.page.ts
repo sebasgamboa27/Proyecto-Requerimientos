@@ -45,8 +45,8 @@ export class Tab1Page {
       
       this.Categories.push({Name:this.names[index],Image:this.images[randomImage]});
 
-      this.Items.push({Name:this.drinks[randomDrink],Image:this.images[randomImage],Type:'Bebida',Price:this.prices[randomPrice]});
-      this.Bebidas.push({Name:this.drinks[randomDrink],Image:this.images[randomImage],Price:this.prices[randomPrice],Type:'Bebida'});
+      this.Items.push({Name:this.drinks[randomDrink],Image:this.images[randomImage],Type:'Bebida',Price:this.prices[randomPrice],Count:0});
+      this.Bebidas.push({Name:this.drinks[randomDrink],Image:this.images[randomImage],Price:this.prices[randomPrice],Type:'Bebida',Count:0});
   
     }
     console.log(this.Categories);
@@ -58,6 +58,8 @@ export class Tab1Page {
 
 
   async openModal(category:Category) {
+
+    this.itemsToUse = []
 
     if(category.Name === 'Bebidas'){
 

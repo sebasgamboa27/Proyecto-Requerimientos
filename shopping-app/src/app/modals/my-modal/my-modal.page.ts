@@ -14,10 +14,11 @@ export class MyModalPage implements OnInit {
   Title: string;
 
   constructor(private modalController: ModalController,
-    private navParams: NavParams, cart: CartService) { }
+    private navParams: NavParams, private cart: CartService) { }
 
   ngOnInit() {
     console.table(this.navParams);
+    this.items = []
     this.items = this.navParams.data.items;
     this.Title = this.navParams.data.Title;
   }
@@ -25,6 +26,25 @@ export class MyModalPage implements OnInit {
   async closeModal(){
     const onClosedData: string = "Wrapped Up!";
     await this.modalController.dismiss(onClosedData);
+  }
+
+  addItem(item:Item){
+
+    item.Count += 1;
+
+    if(!this.cart.itemsInCart.includes(item)){
+      this.cart.addItem(item)
+    }
+    
+  }
+
+  deleteItem(item:Item){
+
+    item.Count -= 1;
+
+    if(this.cart.itemsInCart.includes(item) && item.Count < 1){
+      this.cart.deleteItem(item)
+    }
   }
 
 }
