@@ -8,6 +8,7 @@ export class CartService {
 
   itemsInCart: Item[] = [];
   length: number = 0;
+  totalPrice: number = 0;
 
   constructor() { }
 
@@ -38,5 +39,12 @@ export class CartService {
     });
     this.itemsInCart = [];
     this.length = 0;
+  }
+
+  refreshTotalPrice(){
+    this.totalPrice = 0;
+    this.itemsInCart.forEach(item => {
+      this.totalPrice += item.Count * item.Price;
+    });
   }
 }

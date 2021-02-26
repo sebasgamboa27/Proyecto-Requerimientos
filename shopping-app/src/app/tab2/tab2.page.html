@@ -9,7 +9,7 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Cart<ion-icon name="cart-outline"></ion-icon> <ion-badge color="primary">{{items.length}}</ion-badge></ion-title>
+      <ion-title size="large">Cart<ion-icon name="cart-outline"></ion-icon><ion-badge color="primary">{{items.length}}</ion-badge></ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -35,8 +35,17 @@
       <ion-fab-button (click)="deleteAll()"><ion-icon name="trash-outline"></ion-icon></ion-fab-button>
     </ion-fab-list>
     <ion-fab-list side="start">
-      <ion-fab-button><ion-icon name="cash-outline"></ion-icon></ion-fab-button>
+      <ion-fab-button (click)="order()"><ion-icon name="cash-outline"></ion-icon></ion-fab-button>
     </ion-fab-list>
   </ion-fab>
+
+  <ion-item color="light" style="color: rgb(127, 255, 127);">
+    <ion-label>
+      Total Price:
+    </ion-label>
+    <ion-label>
+      <i class="fas fa-dollar-sign"></i>{{totalPrice}}
+    </ion-label>
+  </ion-item>
 
 </ion-content>

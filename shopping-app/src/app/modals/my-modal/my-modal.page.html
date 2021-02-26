@@ -15,6 +15,7 @@
         <ion-label>
           <h2>{{item.Name}}</h2>
         </ion-label>
+          <ion-badge color="light"><i class="fas fa-dollar-sign"></i>{{item.Price*item.Count}}</ion-badge>
           <ion-button class="ml-3 mr-3" shape="round" size="small" color="danger" (click)="deleteItem(item)"><i class="fas fa-minus"></i></ion-button>
           <p class="ml-3 mr-3">{{item.Count}}</p>
           <ion-button class="ml-3 mr-3" shape="round" size="small" color="success" (click)="addItem(item)"><i class="fas fa-plus"></i></ion-button>
@@ -22,7 +23,7 @@
     </ion-list>
     <ion-row>
       <ion-col text-center>
-        <ion-button color="" (click)="closeModal()">Close</ion-button>
+        <ion-button color="medium" (click)="closeModal()">Close</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
