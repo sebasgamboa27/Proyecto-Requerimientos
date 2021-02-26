@@ -20,7 +20,6 @@ export class OrderServiceService {
 
     const dateString = mm + '/' + dd + '/' + yyyy;
 
-    debugger;
     this.orders.push({ID:this.orders.length,Items:items,Price:price,Date:dateString});
     console.log('nuevas',this.orders);
   }
