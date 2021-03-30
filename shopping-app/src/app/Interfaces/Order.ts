@@ -5,4 +5,5 @@ export interface Order{
   Items: Item[];
   Price: number;
   Date: string;
+  State: boolean;
 }

@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Cart <ion-icon name="cart-outline"></ion-icon>
+      Carrito <ion-icon name="cart-outline"></ion-icon>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -22,7 +22,7 @@
         <ion-badge color="success"><i class="fas fa-dollar-sign"></i>{{item.Price*item.Count}}</ion-badge>
       </ion-item>
       <ion-item-options side="end">
-        <ion-item-option color="danger" (click)="delete(item)">Delete</ion-item-option>
+        <ion-item-option color="danger" (click)="delete(item)">Eliminar</ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
@@ -39,9 +39,9 @@
     </ion-fab-list>
   </ion-fab>
 
-  <ion-item color="light" style="color: rgb(127, 255, 127);">
+  <ion-item color="dark" style="color: rgb(127, 255, 127);">
     <ion-label>
-      Total Price:
+      Total:
     </ion-label>
     <ion-label>
       <i class="fas fa-dollar-sign"></i>{{totalPrice}}
