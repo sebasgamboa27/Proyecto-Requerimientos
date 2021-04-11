@@ -14,8 +14,7 @@ export class CartService {
 
   addItem(item:Item){
     this.itemsInCart.push(item);
-    this.length += 1;
-    console.log(this.itemsInCart);
+    this.length += 1;    
   }
 
   deleteItem(item:Item){
@@ -27,9 +26,6 @@ export class CartService {
       this.itemsInCart.splice(indexOfDeleted,1);
       this.length -= 1;
     }
-
-    console.log(this.itemsInCart);
-
    
   }
 

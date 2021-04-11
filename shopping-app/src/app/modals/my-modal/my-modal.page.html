@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="danger">
+  <ion-toolbar color="primary-contrast">
     <ion-title>{{Title}}</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,7 +9,7 @@
   <ion-grid>
     <ion-list>
       <ion-list-header>
-        {{Title}} Disponibles
+        {{Title}} disponibles
       </ion-list-header>
       <ion-item *ngFor="let item of items">
         <ion-label>
@@ -23,7 +23,7 @@
     </ion-list>
     <ion-row>
       <ion-col text-center>
-        <ion-button color="medium" (click)="closeModal()">Close</ion-button>
+        <ion-button color="medium" (click)="closeModal()">Cerrar</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

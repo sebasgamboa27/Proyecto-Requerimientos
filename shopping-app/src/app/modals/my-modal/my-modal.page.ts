@@ -31,11 +31,10 @@ export class MyModalPage implements OnInit {
   addItem(item:Item){
 
     item.Count += 1;
-
     if(!this.cart.itemsInCart.includes(item)){
       this.cart.addItem(item)
+      
     }
-    
   }
 
   deleteItem(item:Item){

@@ -18,19 +18,19 @@ export class Tab2Page {
   constructor(private cart: CartService,private orders:OrderServiceService,public alertController: AlertController,
     public toastController: ToastController,public loadingController: LoadingController) {}
 
+  ngOnInit(){}
 
-  delete(item:Item){
-    this.cart.deleteItem(item);
-    this.cart.refreshTotalPrice();
-    this.totalPrice = this.cart.totalPrice;
-  }
-
-  ngOnInit(){
+  ionViewWillEnter(){
     this.items = this.cart.itemsInCart;
     this.cart.refreshTotalPrice();
     this.totalPrice = this.cart.totalPrice;
   }
 
+  delete(item:Item){
+    this.cart.deleteItem(item);
+    this.cart.refreshTotalPrice();
+    this.totalPrice = this.cart.totalPrice;
+  } 
 
   deleteAll(){
     this.totalPrice = 0;
@@ -40,26 +40,26 @@ export class Tab2Page {
     this.totalPrice = this.cart.totalPrice;
   }
 
-  async order(){
-    console.log('items:',this.items);
-    await this.presentAlertConfirm();
+  order(){
+    this.orders.addOrder(this.items,this.totalPrice)
+    this.deleteAll();
   }
 
   async presentAlertConfirm() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
-      header: 'Place Order?',
-      message: 'Price to Pay: '+ this.totalPrice,
+      header: 'Confirmar orden?',
+      message: 'Precio: '+ this.totalPrice,
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+            console.log('Orden cancelada: blah');
           }
         }, {
-          text: 'Okay',
+          text: 'Confirmar',
           handler: () => {
             console.log('Confirm Okay');
             this.orders.addOrder(this.items,this.totalPrice);
@@ -68,15 +68,14 @@ export class Tab2Page {
         }
       ]
     });
-
     await alert.present();
   }
 
   async presentLoading() {
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
-      message: 'Please wait...',
-      duration: 2000
+      message: 'Por favor espere...',
+      duration: 1500
     });
     await loading.present();
 
@@ -87,8 +86,8 @@ export class Tab2Page {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'Your ordered has been placed succesfully!',
-      duration: 2000
+      message: 'Su orden ha sido confirmada!',
+      duration: 1500
     });
     toast.present();
     this.deleteAll();
