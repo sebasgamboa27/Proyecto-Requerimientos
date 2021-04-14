@@ -1,27 +1,17 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      *Logo de supermercadosTICO*
-    </ion-title>
-  </ion-toolbar>
 </ion-header>
-
+<ion-toolbar>
+    <ion-title>
+        <ion-img class='icono' src='assets/icono_super.png'></ion-img>
+    </ion-title>
+</ion-toolbar>
 <ion-content [fullscreen]="true">
-  <div *ngFor="let category of Categories" id="cardItmes" class="card mt-3 mb-3" style="width: 18rem; margin: auto;">
-    <img src={{category.Image}} class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">{{category.Name}}</h5>
-      <a class="btn btn-success" (click)="openModal(category)">Ver artículos</a>
+    <div *ngFor="let category of Categories" id="cardItmes" class="card mt-3 mb-3" style="width: 18rem; margin: auto;">
+        <img src={{category.Image}} class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{category.Name}}</h5>
+            <a class="btn btn-success" (click)="openModal(category)">Ver artículos</a>
+        </div>
     </div>
-  </div>
 
 </ion-content>
-
-
-
-
-
-
-
-
-
