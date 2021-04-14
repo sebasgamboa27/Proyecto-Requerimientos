@@ -16,15 +16,51 @@ app.listen(3000, function () {
   console.log('Server listening on port 3000!');
 });
 
+const { Pool, Client } = require('pg');
+
+const pool = new Pool({
+  user: 'dbuser',
+  host: 'database.server.com',
+  database: 'mydb',
+  password: 'secretpassword',
+  port: 3211,
+})
+
+pool.query('SELECT NOW()', (err, res) => {
+  console.log(err, res)
+  pool.end()
+})
+const client = new Client({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'supermercados-tico',
+  password: 'supermercados-tico',
+  port: 3211,
+})
+
+client.connect();
+
 
 app.post('/sp_InsertSucursal', async function (req, res) {
-  await sql.connect(dbConnString);
+
+  
+  //await sql.connect(dbConnString);
 
   const nombre = req.body.nombre;
-  
-  const result = await sql.query(`EXEC sp_InsertSucursal @_nombre = '${nombre}'`);     
 
-  res.send(result.recordset);
+  client.connect();
+  
+  client.query(`EXEC sp_InsertSucursal @_nombre = '${nombre}'`, (err, results) => {
+    console.log(err, results);
+    res.send(results);
+    client.end()
+  })
+
+  
+  
+  //const result = await sql.query(`EXEC sp_InsertSucursal @_nombre = '${nombre}'`);     
+
+  //res.send(result.recordset);
 });
 
 app.get('/sp_selectSucursal', async function (req, res) {
