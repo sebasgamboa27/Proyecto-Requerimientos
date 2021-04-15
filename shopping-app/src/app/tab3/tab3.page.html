@@ -1,15 +1,36 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Ordenes <i class="fas fa-boxes"></i>
-      
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-img class='icono' src='assets/icono_super.png'></ion-img>
+        <ion-title>
+            Ordenes <i class="fas fa-boxes"></i>
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
-<p *ngIf="hidevalue==false"> {{maxTime}}</p>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+    <ion-list>
+        <ion-item *ngFor="let ord of ordenes">
+            <div>
+                <ion-label>
+                    <h2>Pedido: {{ord.Pedido}}</h2>
+                    <h2>Fecha: {{ord.fecha}}</h2>
+                    <h2>Total: {{ord.total}}</h2>
+                </ion-label>
+                <ion-button (click)="cancelarOrden(ord.Pedido)" class="btn btn-success" *ngIf="ord.cancelar">
+                    Cancelar
+                </ion-button>
+            </div>
+
+
+        </ion-item>
+    </ion-list>
+
+
+</ion-content>
+
+
+<!-- 
+<p *ngIf="hidevalue==false"> {{maxTime}}</p>
+<ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Ordenes <i class="fas fa-boxes"></i></ion-title>
     </ion-toolbar>
@@ -30,4 +51,4 @@
     <ion-button >Cancelar</ion-button>
   </ion-card>
 
-</ion-content>
+ -->

@@ -1,51 +1,60 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Carrito <ion-icon name="cart-outline"></ion-icon>
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>
+            Carrito
+            <ion-icon name="cart-outline"></ion-icon>
+            <ion-img class='icono' src='assets/icono_super.png'></ion-img>
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Cart<ion-icon name="cart-outline"></ion-icon><ion-badge color="primary">{{items.length}}</ion-badge></ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <ion-header collapse="condense">
+        <ion-toolbar>
+            <ion-title size="large">Cart
+                <ion-icon name="cart-outline"></ion-icon>
+                <ion-badge color="primary">{{items.length}}</ion-badge>
+            </ion-title>
+        </ion-toolbar>
+    </ion-header>
 
 
-  <ion-list>
-    <ion-item-sliding *ngFor="let item of items">
-      <ion-item>
-        <ion-badge color="light">{{item.Count}}</ion-badge>
-        <ion-label class="ml-3">{{item.Name}}</ion-label>
-        <ion-badge color="success"><i class="fas fa-dollar-sign"></i>{{item.Price*item.Count}}</ion-badge>
-      </ion-item>
-      <ion-item-options side="end">
-        <ion-item-option color="danger" (click)="delete(item)">Eliminar</ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
+    <ion-list>
+        <ion-item-sliding *ngFor="let item of items">
+            <ion-item>
+                <ion-badge color="light">{{item.Count}}</ion-badge>
+                <ion-label class="ml-3">{{item.Name}}</ion-label>
+                <ion-badge color="success"><i class="fas fa-dollar-sign"></i>{{item.Price*item.Count}}</ion-badge>
+            </ion-item>
+            <ion-item-options side="end">
+                <ion-item-option color="danger" (click)="delete(item)">Eliminar</ion-item-option>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="arrow-up-circle"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-list side="top">
-      <ion-fab-button (click)="deleteAll()"><ion-icon name="trash-outline"></ion-icon></ion-fab-button>
-    </ion-fab-list>
-    <ion-fab-list side="start">
-      <ion-fab-button (click)="order()"><ion-icon name="cash-outline"></ion-icon></ion-fab-button>
-    </ion-fab-list>
-  </ion-fab>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+            <ion-icon name="arrow-up-circle"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="top">
+            <ion-fab-button (click)="deleteAll()">
+                <ion-icon name="trash-outline"></ion-icon>
+            </ion-fab-button>
+        </ion-fab-list>
+        <ion-fab-list side="start">
+            <ion-fab-button (click)="order()">
+                <ion-icon name="cash-outline"></ion-icon>
+            </ion-fab-button>
+        </ion-fab-list>
+    </ion-fab>
 
-  <ion-item color="dark" style="color: rgb(127, 255, 127);">
-    <ion-label>
-      Total:
-    </ion-label>
-    <ion-label>
-      <i class="fas fa-dollar-sign"></i>{{totalPrice}}
-    </ion-label>
-  </ion-item>
+    <ion-item color="dark" style="color: rgb(127, 255, 127);">
+        <ion-label>
+            Total:
+        </ion-label>
+        <ion-label>
+            <i class="fas fa-dollar-sign"></i>{{totalPrice}}
+        </ion-label>
+    </ion-item>
 
 </ion-content>

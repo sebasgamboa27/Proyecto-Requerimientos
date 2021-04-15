@@ -2,6 +2,7 @@
 </ion-header>
 <ion-toolbar>
     <ion-title>
+        Menu
         <ion-img class='icono' src='assets/icono_super.png'></ion-img>
     </ion-title>
     <ion-input class="form-control mr-sm-2" #busqueda></ion-input>
@@ -16,7 +17,16 @@
     </ion-item>
 </ion-toolbar>
 <ion-content [fullscreen]="true">
-
-
+    <ion-title>Productos</ion-title>
+    <ion-list>
+        <ion-item [routerLink]="['/detalle-articulo',produ.nombre]" *ngFor="let produ of productos">
+            <ion-avatar>
+                <img [src]="produ.imagen" />
+            </ion-avatar>
+            <ion-title>
+                {{produ.nombre}}
+            </ion-title>
+        </ion-item>
+    </ion-list>
 
 </ion-content>

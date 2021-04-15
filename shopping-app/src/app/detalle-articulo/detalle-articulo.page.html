@@ -1,9 +1,18 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>detalleArticulo</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-img class='icono' src='assets/icono_super.png'></ion-img>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/"></ion-back-button>
+        </ion-buttons>
+
+        <ion-title>detalleArticulo</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <ion-img [src]="detallesArticulo.imagen"></ion-img>
+    <ion-title>{{detallesArticulo.nombre}} </ion-title>
+    <ion-title>Cantidad: {{detallesArticulo.cantidad}}</ion-title>
 
+    <button (click)="agregarAlCarrito()" class="btn btn-success">Agregar</button>
 </ion-content>
