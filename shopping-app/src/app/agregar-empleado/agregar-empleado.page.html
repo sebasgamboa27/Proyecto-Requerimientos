@@ -1,9 +1,10 @@
-<ion-header>
-    <ion-toolbar>
-        <ion-img class='icono' src='assets/icono_super.png'></ion-img>
-        <ion-title>agregarEmpleado</ion-title>
-    </ion-toolbar>
-</ion-header>
+<ion-header><ion-toolbar>
+  <ion-buttons>
+    <ion-back-button defaultHref="tabs-empleados/listaEmpleado" >
+    </ion-back-button>
+    <ion-img class='icono' src='assets/icono_super.png'></ion-img>
+  </ion-buttons>
+</ion-toolbar></ion-header>
 
 <ion-content>
   <ion-title class="ion-text-center">Agregar empleado</ion-title>
@@ -34,8 +35,4 @@
   <ion-button class="btn btn-success" expand="block" type="submit" 
   [disabled] = "formulario.invalid">Agregar</ion-button>
 </form>
-
-
-
-
 </ion-content>
