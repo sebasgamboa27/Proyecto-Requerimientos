@@ -1,9 +1,30 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>listaEmpleados</ion-title>
+    <ion-buttons>
+      <ion-back-button defaultHref="tabs" >
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <ion-img class='icono' src='assets/icono_super.png'></ion-img>
+  </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-list>
+    <ion-item *ngFor ="let empleado of empleados" [routerLink]="['/tabs']">
+      <ion-avatar slot="start">
+        <img src="assets/user_icono.png" alt="">
+      </ion-avatar>
+      <ion-label>
+        {{empleado.nombre}} {{empleado.apellido}}
+        
+        <ion-button class="btn btn-success" size="small">Agregar empleado</ion-button>
+      </ion-label>
 
+    </ion-item>
+  </ion-list>
+  <ion-button class="btn btn-success" expand="block" >Agregar empleado</ion-button>
 </ion-content>
+
+
