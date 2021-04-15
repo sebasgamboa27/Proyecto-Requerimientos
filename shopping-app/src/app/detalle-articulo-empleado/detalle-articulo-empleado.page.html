@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/tabs-empleados/productosEmpleado"></ion-back-button>
+        </ion-buttons>
+        <ion-img class='icono' src='assets/icono_super.png'></ion-img>
+        <ion-title>Articulo</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-label position="floating">nombre</ion-label>
+    <ion-input class="form-control" type="text" [(ngModel)]="detalle.nombre" name="nombre"></ion-input>
+
+    <ion-label position="floating">Imagen</ion-label>
+    <ion-input class="form-control" type="text" [(ngModel)]="detalle.imagen" name="imagen"></ion-input>
+
+    <ion-label position="floating">Cantidad</ion-label>
+    <ion-input class="form-control" type="text" [(ngModel)]="detalle.cantidad" name="cantidad"></ion-input>
+
+    <ion-label position="floating">Precio</ion-label>
+    <ion-input class="form-control" type="text" [(ngModel)]="detalle.precio" name="precio"></ion-input>
+
+    <ion-label position="floating">Descripcion</ion-label>
+    <ion-input class="form-control" type="text" [(ngModel)]="detalle.descripcion" name="descripcion"></ion-input>
+
+    <button (click)="actualizar()" class="btn btn-success">Actualizar Producto</button>
+
+
+</ion-content>

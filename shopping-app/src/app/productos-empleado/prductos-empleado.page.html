@@ -1,9 +1,21 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>prductosEmpleado</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>Productos Empleado</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
-</ion-content>
+    <ion-content [fullscreen]="true">
+        <ion-title>Productos</ion-title>
+        <ion-list>
+            <ion-item [routerLink]="['/detalle-articulo-empleado',produ.nombre]" *ngFor="let produ of productos">
+                <ion-avatar>
+                    <img [src]="produ.imagen" />
+                </ion-avatar>
+                <ion-title>
+                    {{produ.nombre}}
+                </ion-title>
+            </ion-item>
+        </ion-list>
+        <button [routerLink]="['/busqueda']" class="btn btn-success">Agregar producto</button>
+    </ion-content>

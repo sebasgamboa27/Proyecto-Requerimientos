@@ -41,7 +41,16 @@ const routes: Routes = [
   {
     path: 'tabs-empleados',
     loadChildren: () => import('./tabs-empleados/tabs-empleados.module').then( m => m.TabsEmpleadosPageModule)
+  },
+  {
+    path: 'detalle-articulo-empleado/:articulo',
+    loadChildren: () => import('./detalle-articulo-empleado/detalle-articulo-empleado.module').then( m => m.DetalleArticuloEmpleadoPageModule)
+  },  {
+    path: 'moificar-empleado',
+    loadChildren: () => import('./moificar-empleado/moificar-empleado.module').then( m => m.MoificarEmpleadoPageModule)
   }
+
+
 
 
 
