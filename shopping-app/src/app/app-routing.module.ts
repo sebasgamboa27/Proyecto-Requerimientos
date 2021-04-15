@@ -41,7 +41,19 @@ const routes: Routes = [
   {
     path: 'seleccionar-sucursal',
     loadChildren: () => import('./seleccionar-sucursal/seleccionar-sucursal.module').then( m => m.SeleccionarSucursalPageModule)
+  },  {
+    path: 'menu-empleado',
+    loadChildren: () => import('./menu-empleado/menu-empleado.module').then( m => m.MenuEmpleadoPageModule)
+  },
+  {
+    path: 'ordenes-empleado',
+    loadChildren: () => import('./ordenes-empleado/ordenes-empleado.module').then( m => m.OrdenesEmpleadoPageModule)
+  },
+  {
+    path: 'prductos-empleado',
+    loadChildren: () => import('./prductos-empleado/prductos-empleado.module').then( m => m.PrductosEmpleadoPageModule)
   }
+
 
 
 
