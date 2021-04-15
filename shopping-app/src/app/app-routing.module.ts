@@ -9,7 +9,11 @@ const routes: Routes = [
   {
     path: 'my-modal',
     loadChildren: () => import('./modals/my-modal/my-modal.module').then( m => m.MyModalPageModule)
+  },  {
+    path: 'lista-empleados',
+    loadChildren: () => import('./lista-empleados/lista-empleados.module').then( m => m.ListaEmpleadosPageModule)
   }
+
 ];
 @NgModule({
   imports: [
