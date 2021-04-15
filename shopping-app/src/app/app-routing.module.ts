@@ -3,7 +3,11 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
+  path: '',
+  loadChildren: () => import('./seleccionar-sucursal/seleccionar-sucursal.module').then(m => m.SeleccionarSucursalPageModule)
+  },
+  {
+    path: 'tabs',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
@@ -25,14 +29,31 @@ const routes: Routes = [
   {
     path: 'categoria/:cate',
     loadChildren: () => import('./categoria/categoria.module').then( m => m.CategoriaPageModule)
-  },  {
+  },
+  {
     path: 'agregar-empleado',
     loadChildren: () => import('./agregar-empleado/agregar-empleado.module').then( m => m.AgregarEmpleadoPageModule)
   },
   {
     path: 'ordenes',
     loadChildren: () => import('./ordenes/ordenes.module').then( m => m.OrdenesPageModule)
+  },
+  {
+    path: 'seleccionar-sucursal',
+    loadChildren: () => import('./seleccionar-sucursal/seleccionar-sucursal.module').then( m => m.SeleccionarSucursalPageModule)
+  },  {
+    path: 'menu-empleado',
+    loadChildren: () => import('./menu-empleado/menu-empleado.module').then( m => m.MenuEmpleadoPageModule)
+  },
+  {
+    path: 'ordenes-empleado',
+    loadChildren: () => import('./ordenes-empleado/ordenes-empleado.module').then( m => m.OrdenesEmpleadoPageModule)
+  },
+  {
+    path: 'prductos-empleado',
+    loadChildren: () => import('./prductos-empleado/prductos-empleado.module').then( m => m.PrductosEmpleadoPageModule)
   }
+
 
 
 
