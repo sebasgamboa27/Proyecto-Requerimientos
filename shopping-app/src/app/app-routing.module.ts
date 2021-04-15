@@ -9,10 +9,33 @@ const routes: Routes = [
   {
     path: 'my-modal',
     loadChildren: () => import('./modals/my-modal/my-modal.module').then( m => m.MyModalPageModule)
-  },  {
+  },
+  {
     path: 'lista-empleados',
     loadChildren: () => import('./lista-empleados/lista-empleados.module').then( m => m.ListaEmpleadosPageModule)
+  },
+  {
+    path: 'busqueda/:busqueda',
+    loadChildren: () => import('./busqueda/busqueda.module').then( m => m.BusquedaPageModule)
+  },
+  {
+    path: 'detalle-articulo/:id',
+    loadChildren: () => import('./detalle-articulo/detalle-articulo.module').then( m => m.DetalleArticuloPageModule)
+  },
+  {
+    path: 'categoria/:cate',
+    loadChildren: () => import('./categoria/categoria.module').then( m => m.CategoriaPageModule)
+  },  {
+    path: 'agregar-empleado',
+    loadChildren: () => import('./agregar-empleado/agregar-empleado.module').then( m => m.AgregarEmpleadoPageModule)
+  },
+  {
+    path: 'ordenes',
+    loadChildren: () => import('./ordenes/ordenes.module').then( m => m.OrdenesPageModule)
   }
+
+
+
 
 ];
 @NgModule({

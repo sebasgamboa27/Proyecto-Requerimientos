@@ -4,16 +4,19 @@
     <ion-title>
         <ion-img class='icono' src='assets/icono_super.png'></ion-img>
     </ion-title>
+    <ion-input class="form-control mr-sm-2" #busqueda></ion-input>
+    <button [routerLink]="['/busqueda',busqueda.value]" class="btn btn-success">Buscar</button>
+    <ion-item>
+        <ion-label>Categoria</ion-label>
+        <ion-select [(ngModel)]="categoria" placeholder="seleccione categoria">
+            <ion-select-option *ngFor="let cate of Categories">{{cate.Name}} </ion-select-option>
+        </ion-select>
+        <button [routerLink]="['/categoria',categoria]" class="btn btn-success">Filtrar</button>
 
-    <ion-input class="form-control mr-sm-2">Buscar</ion-input>
+    </ion-item>
 </ion-toolbar>
 <ion-content [fullscreen]="true">
-    <div *ngFor="let category of Categories" id="cardItmes" class="card mt-3 mb-3" style="width: 18rem; margin: auto;">
-        <img src={{category.Image}} class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">{{category.Name}}</h5>
-            <a class="btn btn-success" (click)="openModal(category)">Ver artículos</a>
-        </div>
-    </div>
+
+
 
 </ion-content>
