@@ -15,10 +15,6 @@ const routes: Routes = [
     loadChildren: () => import('./modals/my-modal/my-modal.module').then( m => m.MyModalPageModule)
   },
   {
-    path: 'lista-empleados',
-    loadChildren: () => import('./lista-empleados/lista-empleados.module').then( m => m.ListaEmpleadosPageModule)
-  },
-  {
     path: 'busqueda/:busqueda',
     loadChildren: () => import('./busqueda/busqueda.module').then( m => m.BusquedaPageModule)
   },
@@ -41,18 +37,12 @@ const routes: Routes = [
   {
     path: 'seleccionar-sucursal',
     loadChildren: () => import('./seleccionar-sucursal/seleccionar-sucursal.module').then( m => m.SeleccionarSucursalPageModule)
-  },  {
-    path: 'menu-empleado',
-    loadChildren: () => import('./menu-empleado/menu-empleado.module').then( m => m.MenuEmpleadoPageModule)
   },
   {
-    path: 'ordenes-empleado',
-    loadChildren: () => import('./ordenes-empleado/ordenes-empleado.module').then( m => m.OrdenesEmpleadoPageModule)
-  },
-  {
-    path: 'prductos-empleado',
-    loadChildren: () => import('./prductos-empleado/prductos-empleado.module').then( m => m.PrductosEmpleadoPageModule)
+    path: 'tabs-empleados',
+    loadChildren: () => import('./tabs-empleados/tabs-empleados.module').then( m => m.TabsEmpleadosPageModule)
   }
+
 
 
 
