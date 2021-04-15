@@ -5,5 +5,15 @@
 </ion-header>
 
 <ion-content>
+  <ion-list>
+    <ion-item *ngFor ="let orden of ordenes" [routerLink]="['/tabs']">
+      <ion-label>
+        {{orden.fecha}}
+        {{orden.nombre}} 
+        {{orden.apellido}}
+        {{orden.precioTotal}}
+      </ion-label>
+    </ion-item>
 
+  </ion-list>
 </ion-content>

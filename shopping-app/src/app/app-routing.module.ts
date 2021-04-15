@@ -41,9 +41,6 @@ const routes: Routes = [
   {
     path: 'seleccionar-sucursal',
     loadChildren: () => import('./seleccionar-sucursal/seleccionar-sucursal.module').then( m => m.SeleccionarSucursalPageModule)
-  },  {
-    path: 'menu-empleado',
-    loadChildren: () => import('./menu-empleado/menu-empleado.module').then( m => m.MenuEmpleadoPageModule)
   },
   {
     path: 'ordenes-empleado',
