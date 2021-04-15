@@ -47,7 +47,7 @@ const routes: Routes = [
     loadChildren: () => import('./detalle-articulo-empleado/detalle-articulo-empleado.module').then( m => m.DetalleArticuloEmpleadoPageModule)
   },
   {
-    path: 'moificar-empleado',
+    path: 'moificar-empleado/:id',
     loadChildren: () => import('./moificar-empleado/moificar-empleado.module').then( m => m.MoificarEmpleadoPageModule)
   },
   {
