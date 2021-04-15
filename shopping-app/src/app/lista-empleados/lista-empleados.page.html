@@ -9,16 +9,16 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor ="let empleado of empleados" [routerLink]="['/tabs']">
+    <ion-item *ngFor ="let empleado of empleados" [routerLink]="['/moificar-empleado']">
       <ion-avatar slot="start">
         <img src="assets/user_icono.png" alt="">
       </ion-avatar>
       <ion-label>
         {{empleado.nombre}} {{empleado.apellido}}
         
-        <ion-button class="btn btn-success"  size="small" (click)="eliminarEmpleado(empleado.id)">-</ion-button>
+        
       </ion-label>
-
+      <ion-button class="btn btn-success"  size="small" (click)="eliminarEmpleado(empleado.id)">-</ion-button>
     </ion-item>
   </ion-list>
   <ion-button class="btn btn-success" expand="block" [routerLink]="['/agregar-empleado']">Agregar empleado</ion-button>
