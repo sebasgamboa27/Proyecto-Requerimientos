@@ -49,6 +49,10 @@ const routes: Routes = [
   {
     path: 'moificar-empleado',
     loadChildren: () => import('./moificar-empleado/moificar-empleado.module').then( m => m.MoificarEmpleadoPageModule)
+  },
+  {
+    path: 'agregar-producto',
+    loadChildren: () => import('./agregar-producto/agregar-producto.module').then( m => m.AgregarProductoPageModule)
   }
 
 

@@ -9,7 +9,9 @@ import { DatabaseService } from '../services/database.service';
 export class DetalleArticuloPage implements OnInit {
   detallesArticulo:any={"imagen":"https://as.com/deporteyvida/imagenes/2018/05/08/portada/1525772857_240454_1525773041_noticia_normal.jpg",
   "nombre":"Leche",
-  "cantidad":"100"};
+  "cantidad":"100",
+"Descripcion":"dasfdfd",
+"Precio":"2343"};
   constructor() { }
 
   ngOnInit() {
