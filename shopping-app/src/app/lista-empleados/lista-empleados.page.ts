@@ -14,14 +14,20 @@ export class ListaEmpleadosPage implements OnInit {
 
   ngOnInit() {
     //LLAMAR AL SERVICIO
-    this.empleados =[{"nombre" : 'Carlitos',
+    this.empleados =[{"id":1,
+                      "nombre" : 'Carlitos',
                       "apellido" : 'Badilla',
                       "NombreDeUsuario": 'cato',
                     "cedula":'1176534' },
-                    {"nombre" : 'Allison',
+                    {"id":2,
+                      "nombre" : 'Allison',
                     "apellido" : 'Solano',
                     "NombreDeUsuario": 'Allis',
                   "cedula":'1179852' }]
+  }
+  eliminarEmpleado(id){
+    //LLAMAR AL SERVICIO
+    console.log(id)
   }
 
 }

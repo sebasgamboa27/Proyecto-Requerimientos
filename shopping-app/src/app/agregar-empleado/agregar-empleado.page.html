@@ -6,5 +6,36 @@
 </ion-header>
 
 <ion-content>
+  <ion-title class="ion-text-center">Agregar empleado</ion-title>
+
+<form #formulario="ngForm" (ngSubmit)="onSubmitTemplate()">
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input type="text" [(ngModel)]="empleado.nombre" name="nombre"></ion-input>
+      
+      <ion-label position="floating">Apellido</ion-label>
+      <ion-input type="text" [(ngModel)]="empleado.apellido" name="apellido"></ion-input>
+
+      <ion-label position="floating">Correo</ion-label>
+      <ion-input type="text" [(ngModel)]="empleado.correo" name="correo"></ion-input>
+
+      <ion-label position="floating">Usuario</ion-label>
+      <ion-input type="text" [(ngModel)]="empleado.usuario" name="usuario"></ion-input>
+
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input type="text" [(ngModel)]="empleado.contra" name="contra"></ion-input>
+
+      <ion-label position="floating">Dirección Física</ion-label>
+      <ion-input type="text" [(ngModel)]="empleado.dir" name="dir"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-button class="btn btn-success" expand="block" type="submit" 
+  [disabled] = "formulario.invalid">Agregar</ion-button>
+</form>
+
+
+
 
 </ion-content>
