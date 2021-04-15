@@ -13,10 +13,30 @@ const routes: Routes = [
   {
     path: 'my-modal',
     loadChildren: () => import('./modals/my-modal/my-modal.module').then( m => m.MyModalPageModule)
+  }
+  {
+    path: 'busqueda/:busqueda',
+    loadChildren: () => import('./busqueda/busqueda.module').then( m => m.BusquedaPageModule)
   },
   {
-    path: 'lista-empleados',
-    loadChildren: () => import('./lista-empleados/lista-empleados.module').then( m => m.ListaEmpleadosPageModule)
+    path: 'detalle-articulo/:id',
+    loadChildren: () => import('./detalle-articulo/detalle-articulo.module').then( m => m.DetalleArticuloPageModule)
+  },
+  {
+    path: 'categoria/:cate',
+    loadChildren: () => import('./categoria/categoria.module').then( m => m.CategoriaPageModule)
+  },
+  {
+    path: 'agregar-empleado',
+    loadChildren: () => import('./agregar-empleado/agregar-empleado.module').then( m => m.AgregarEmpleadoPageModule)
+  },
+  {
+    path: 'ordenes',
+    loadChildren: () => import('./ordenes/ordenes.module').then( m => m.OrdenesPageModule)
+  },
+  {
+    path: 'seleccionar-sucursal',
+    loadChildren: () => import('./seleccionar-sucursal/seleccionar-sucursal.module').then( m => m.SeleccionarSucursalPageModule)
   },
   {
     path: 'busqueda/:busqueda',
@@ -43,12 +63,8 @@ const routes: Routes = [
     loadChildren: () => import('./seleccionar-sucursal/seleccionar-sucursal.module').then( m => m.SeleccionarSucursalPageModule)
   },
   {
-    path: 'ordenes-empleado',
-    loadChildren: () => import('./ordenes-empleado/ordenes-empleado.module').then( m => m.OrdenesEmpleadoPageModule)
-  },
-  {
-    path: 'prductos-empleado',
-    loadChildren: () => import('./prductos-empleado/prductos-empleado.module').then( m => m.PrductosEmpleadoPageModule)
+    path: 'tabs-empleados',
+    loadChildren: () => import('./tabs-empleados/tabs-empleados.module').then( m => m.TabsEmpleadosPageModule)
   }
 
 
