@@ -16,14 +16,15 @@ export class DatabaseService {
     return await this.http.post<any[]>('http://localhost:3000/sp_InsertSucursal',{nombre:nombre}).toPromise();
   }
 
-sp_selectSucursal() {
-    return this.http.get('http://localhost:3000/sp_selectSucursal');
+async sp_selectSucursal() {
+    return await this.http.get<any[]>('http://localhost:3000/sp_selectSucursal').toPromise();
   }
 
   async sp_deleteSucursal(id:number) {
     return await this.http.post<any[]>('http://localhost:3000/sp_deleteSucursal',{id:id}).toPromise();
   }
-
+  
+  
   async updateSucursal(nombre: string) {
     return await this.http.post<any[]>('http://localhost:3000/updateSucursal',{nombre:nombre}).toPromise();
   }

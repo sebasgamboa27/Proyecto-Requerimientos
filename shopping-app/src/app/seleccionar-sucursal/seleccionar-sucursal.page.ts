@@ -11,10 +11,9 @@ export class SeleccionarSucursalPage implements OnInit {
   sucursales:any=['San jose','Alajuela','Heredia','Guanacaste','Limon','Cartago','Puntarenas']
   suc:any
   constructor(private base:DatabaseService) {}
-  ngOnInit() {
-    this.base.sp_selectSucursal().subscribe((res)=>{
-      this.suc=res;
-    });
+  async ngOnInit() {
+    this.suc=await this.base.sp_selectSucursal()
+    console.log(this.suc)
   }
 
 }

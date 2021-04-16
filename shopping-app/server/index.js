@@ -35,7 +35,7 @@ const client = new Pool({
 //client.connect()
 
 app.get('/sp_selectSucursal', async function(req, res) {
-    const response = await pool.query(`SELECT getallsucursales()`);
+    const response = await client.query(`SELECT getallsucursales()`);
     res.json(response.rows);
     /*
         client.query(`select getAllSucursales()`, (err, results) => {
@@ -48,7 +48,7 @@ app.get('/sp_selectSucursal', async function(req, res) {
 
 
 app.get('/sp_selectCategoria', async function(req, res) {
-    
+
     /*client.connect();
 
     client.query(`select getAllCategorias()`, (err, results) => {
@@ -78,7 +78,7 @@ app.post('/sp_InsertArticulo', async function(req, res) {
 
     const response = await pool.query(`call sp_InsertArticulo(${nombre},${descripccion},${precio},${cantidad},${categoriaId},${sucursalId})`);
     res.json(response.rows);
-    
+
 });
 
 
@@ -119,7 +119,7 @@ app.post('/sp_updateArticulo', async function(req, res) {
     const response = await pool.query(`call sp_updateArticulo(${idv},${nombre},${descripccion},${precio},${cantidad},${categoriaId},${sucursalId})`);
     res.json(response.rows);
 
-    
+
 });
 
 
@@ -136,7 +136,7 @@ app.post('/sp_deleteArticulo', async function(req, res) {
 
     const response = await pool.query(`call sp_deleteArticulo(${id})`);
     res.json(response.rows);
-    
+
 });
 
 
@@ -299,8 +299,8 @@ app.get('/sp_selectArticuloXPedido', async function(req, res) {
 
 app.post('/sp_deleteArticuloXPedido', async function(req, res) {
     const id = req.body.id;
-    
-    
+
+
     /*client.connect();
     client.query(`select deleteArticuloXPedido(${id})`, (err, results) => {
         console.log(err, results);
@@ -310,7 +310,7 @@ app.post('/sp_deleteArticuloXPedido', async function(req, res) {
 
     const response = await pool.query(`select deleteArticuloXPedido(${id})`);
     res.json(response.rows);
-    
+
 });
 
 app.post('/seleccionarSucursal', async function(req, res) {
