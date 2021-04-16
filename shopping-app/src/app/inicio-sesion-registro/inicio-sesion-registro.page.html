@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Iniciar Sesion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id='login-form'class='login-page'>
+    <div class="form-box">
+      <div class='button-box'>
+          <div id='btn'></div>
+          <button type='button' (click)='login()'class='toggle-btn'>Inicio</button>
+          <button type='button' (click)='register()'class='toggle-btn'>Registro</button>
+      </div>
+      <form id='login' class='input-group-login'>
+        <input type='text'class='input-field' [(ngModel)]="nombreUsuario" name="Username"  placeholder='Nombre de Usuario' required >
+        <input type='password'class='input-field'  [(ngModel)]="contrasena" name="contrasena" placeholder='Contraseña' required>
+        <button type='submit'class='submit-btn' (click)="inicioSesion()">Log in</button>
+      </form>
+      <form id='register' class='input-group-register'>
+        <input type='text' class='input-field' [(ngModel)]="email" name="email" placeholder='Email' required>
+        <input type='text' class='input-field' [(ngModel)]="nombre" name="nombre" placeholder='Nombre' required>
+        <input type='email' class='input-field' [(ngModel)]="apellido" name="apellido" placeholder='Apellido' required>
+        <input type='password' class='input-field' [(ngModel)]="contrasenaRegistro" name="contrasenaRegistro" placeholder='Contraseña' required>
+        <input type='password' class='input-field' [(ngModel)]="nombreUsuarioRegistro" name="nombreUsuarioRegistro" placeholder='Nombre de Usuario' required>
+        <input type='password' class='input-field' [(ngModel)]="dirFisica" name="dirFisica" placeholder='Dirección Física' required>
+        <input type='checkbox' class='check-box'><span>I agree to the terms and conditions</span>
+        <button type='submit' class='submit-btn' (click)="registrarUsuario()">Register</button>
+      </form>
+    </div>
+  </div>
+</ion-content>

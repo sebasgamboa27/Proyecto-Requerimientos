@@ -4,6 +4,10 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
   path: '',
+  loadChildren: () => import('./inicio-sesion-registro/inicio-sesion-registro.module').then(m => m.InicioSesionRegistroPageModule)
+  },
+  {
+  path: 'sucursal',
   loadChildren: () => import('./seleccionar-sucursal/seleccionar-sucursal.module').then(m => m.SeleccionarSucursalPageModule)
   },
   {
