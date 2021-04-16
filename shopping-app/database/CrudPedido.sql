@@ -52,27 +52,54 @@ $$ LANGUAGE SQL;
 CREATE FUNCTION getPedidoWhitId(_id int) 
 RETURNS TABLE (
 	id 				int ,
-	estado 			varchar(50),
+	estado 			bool,
 	fecha 			TIMESTAMP ,
 	precioTotal		float,
 	usuarioId		int,
 	nombreUsuario varchar(50)
 ) AS $$
-	SELECT pe.id,pe.estado,pe.fecha ,pe.precioTotal,pe.usuarioId, U.nombreUsuario FROM Pedido pe, Usuario U where U.id = pe.usuarioId and pe.id = _id;	
-$$ LANGUAGE SQL;
+declare 
+	aux TIMESTAMP;
+	begin
+	if exists(select * from Pedido where id = _id)then
+		select fecha into aux from Pedido where id = _id;
+	else
+		RAISE 'Error: Pedido no existe';
+	end if;
+	
+	if((Now() -  + (min * interval '5 minute')) < aux)then
+		return query SELECT pe.id,TRUE,pe.fecha ,pe.precioTotal,pe.usuarioId, U.nombreUsuario FROM Pedido pe, Usuario U where U.id = pe.usuarioId and pe.id = _id;	
+	else
+		return query SELECT pe.id,FALSE,pe.fecha ,pe.precioTotal,pe.usuarioId, U.nombreUsuario FROM Pedido pe, Usuario U where U.id = pe.usuarioId and pe.id = _id;
+	end if;
+	end;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE FUNCTION getPedidoWhitUserId(_userId int) 
 RETURNS TABLE (
 	id 				int ,
-	estado 			varchar(50),
+	estado 			bool,
 	fecha 			TIMESTAMP ,
 	precioTotal		float,
 	usuarioId		int,
 	nombreUsuario varchar(50)
 ) AS $$
-	SELECT pe.id,pe.estado,pe.fecha ,pe.precioTotal,pe.usuarioId, U.nombreUsuario FROM Pedido pe, Usuario U where U.id = pe.usuarioId and pe.usuarioId =_userId;
-$$ LANGUAGE SQL;
+DECLARE
+	PedidoRow RECORD;
+	begin
+	if exists (select * from Usuario where id = _userId)then
+		for PedidoRow in select * from Pedido where usuarioId = _userId  
+		loop
+			if((Now() -  + (min * interval '5 minute')) < i.fecha)then
+				return query SELECT pe.id,TRUE,pe.fecha ,pe.precioTotal,pe.usuarioId, U.nombreUsuario FROM Pedido pe, Usuario U where U.id = pe.usuarioId and pe.id = _id;	
+			else
+				return query SELECT pe.id,FALSE,pe.fecha ,pe.precioTotal,pe.usuarioId, U.nombreUsuario FROM Pedido pe, Usuario U where U.id = pe.usuarioId and pe.id = _id;
+			end if;		
+		end loop;
+	end if;
+end;
+$$ LANGUAGE PLPGSQL;
 
 CREATE or replace PROCEDURE sp_updatePedido(
 	_id 				int,
