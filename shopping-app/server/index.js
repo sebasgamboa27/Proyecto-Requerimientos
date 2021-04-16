@@ -261,7 +261,7 @@ app.get('/sp_selectPedido', async function(req, res) {
         client.end()
     });*/
 
-    const response = await pool.query(`select getPedidoWhitId(${id})`);
+    const response = await pool.query(`select getPedidoWhitUserId(${id})`);
     res.json(response.rows);
 });
 
