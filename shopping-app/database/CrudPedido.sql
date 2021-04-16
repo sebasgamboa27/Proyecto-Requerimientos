@@ -88,13 +88,13 @@ RETURNS TABLE (
 DECLARE
 	PedidoRow RECORD;
 	begin
-	if exists (select * from Usuario where id = _userId)then
-		for PedidoRow in select * from Pedido where usuarioId = _userId  
+	if exists (select u.* from Usuario u where u.id = _userId)then
+		for PedidoRow in select * from Pedido pe where pe.usuarioId = _userId  
 		loop
-			if((Now() -  + (min * interval '5 minute')) < i.fecha)then
-				return query SELECT pe.id,TRUE,pe.fecha ,pe.precioTotal,pe.usuarioId, U.nombreUsuario FROM Pedido pe, Usuario U where U.id = pe.usuarioId and pe.id = _id;	
+			if((Now() - (interval '5 minute')) < PedidoRow.fecha)then
+				return query SELECT pe.id,TRUE,pe.fecha ,pe.precioTotal,pe.usuarioId, U.nombreUsuario FROM Pedido pe, Usuario U where U.id = _userId ;	
 			else
-				return query SELECT pe.id,FALSE,pe.fecha ,pe.precioTotal,pe.usuarioId, U.nombreUsuario FROM Pedido pe, Usuario U where U.id = pe.usuarioId and pe.id = _id;
+				return query SELECT pe.id,FALSE,pe.fecha ,pe.precioTotal,pe.usuarioId, U.nombreUsuario FROM Pedido pe, Usuario U where U.id = _userId ;
 			end if;		
 		end loop;
 	end if;
