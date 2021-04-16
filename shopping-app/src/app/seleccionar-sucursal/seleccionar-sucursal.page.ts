@@ -8,12 +8,18 @@ import{DatabaseService} from '../services/database.service'
   styleUrls: ['./seleccionar-sucursal.page.scss'],
 })
 export class SeleccionarSucursalPage implements OnInit {
-  sucursales:any=['San jose','Alajuela','Heredia','Guanacaste','Limon','Cartago','Puntarenas']
-  suc:any
+  sucursales=[];
+  suc:any;
   constructor(private base:DatabaseService) {}
   async ngOnInit() {
     this.suc=await this.base.sp_selectSucursal()
-    console.log(this.suc)
+    for (var i=0;i<this.suc.length;i++){
+      this.sucursales.push(this.suc[i]);
+    }
+  }
+
+  async sucursal(id:number){
+    await this.base.enviarSucursal(id);
   }
 
 }

@@ -7,9 +7,8 @@
 
 <ion-content>
     <ion-list>
-        {{suc}}
         <ion-item *ngFor="let suc of sucursales">
-            <h2 [routerLink]="['/tabs']">{{suc}}</h2>
+            <ion-button [routerLink]="['/tabs']" class="btn btn-success" size="small" (click)="sucursal(suc.id)">{{suc.nombre}}</ion-button>
         </ion-item>
     </ion-list>
 </ion-content>

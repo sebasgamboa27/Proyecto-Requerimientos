@@ -35,7 +35,7 @@ const client = new Pool({
 //client.connect()
 
 app.get('/sp_selectSucursal', async function(req, res) {
-    const response = await client.query(`SELECT getallsucursales()`);
+    const response = await client.query(`SELECT * FROM getallsucursales()`);
     res.json(response.rows);
     /*
         client.query(`select getAllSucursales()`, (err, results) => {
@@ -316,6 +316,7 @@ app.post('/sp_deleteArticuloXPedido', async function(req, res) {
 app.post('/seleccionarSucursal', async function(req, res) {
     const id = req.body.sucursal;
     process.env.SUCURSAL = id;
+    console.log(process.env.SUCURSAL)
 });
 
 app.post('/agregarAcarrito', async function(req, res) {
