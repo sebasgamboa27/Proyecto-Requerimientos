@@ -85,13 +85,13 @@ async sp_selectSucursal() {
 
 
 
-  async sp_InsertUsuario(id:number, nombre: string,apellido: string,contraseña: string,correo: string,categoriaId: number,direccionFisica:string,nombreUsuario:string,
+  async sp_InsertUsuario(nombre: string,apellido: string,contraseña: string,correo: string,direccionFisica:string,nombreUsuario:string,
 
     cedula:number,tipoId:number) {
 
-    return await this.http.post<any[]>('http://localhost:3000/sp_InsertUsuario',{id:id,nombre:nombre,apellido:apellido,contraseña:contraseña,correo:correo,
+    return await this.http.post<any[]>('http://localhost:3000/sp_InsertUsuario',{nombre:nombre,apellido:apellido,contraseña:contraseña,correo:correo,
 
-    categoriaId:categoriaId,direccionFisica:direccionFisica,nombreUsuario:nombreUsuario,cedula:cedula,tipoId:tipoId}).toPromise();
+    direccionFisica:direccionFisica,nombreUsuario:nombreUsuario,cedula:cedula,tipoId:tipoId}).toPromise();
   }
 
   async sp_selectUsuario() {

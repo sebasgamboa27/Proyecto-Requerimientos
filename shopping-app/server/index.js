@@ -16,19 +16,12 @@ app.listen(3000, function() {
 const { Pool, Client } = require('pg');
 client: Pool;
 
-/*const client = new Client({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'Requerimientos',
-    password: '20001808',
-    port: 5432,
-})*/
 
 const client = new Pool({
     user: 'postgres',
     host: 'localhost',
-    database: 'Requerimientos',
-    password: '20001808',
+    database: 'pruebas',
+    password: process.env.PASSWORD_DB,
     port: 5432,
 })
 
