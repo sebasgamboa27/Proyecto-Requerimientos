@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { Category } from '../Interfaces/Category';
 import { Item } from '../Interfaces/Item';
 import { MyModalPage } from '../modals/my-modal/my-modal.page';
+import { DatabaseService } from '../services/database.service';
 
 
 
@@ -37,7 +38,7 @@ export class Tab1Page {
 ]
   dataReturned: any;
 
-  constructor(public modalController: ModalController) {
+  constructor(public modalController: ModalController,private database: DatabaseService) {
   }
 
   ngOnInit(){
