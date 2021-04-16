@@ -36,7 +36,7 @@ Create Table Usuario(
 
 CREATE TABLE Pedido(
 	id 				serial primary key,
-	estado 			varchar(50),
+	estado 			bool,
 	fecha 			TIMESTAMP NOT NULL,
 	precioTotal		float,
 	usuarioId		int references Usuario	
