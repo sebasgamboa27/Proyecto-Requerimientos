@@ -1,27 +1,25 @@
 <ion-header>
-  <ion-toolbar>
-    
-    <ion-title>
-      <ion-img class='icono' src='assets/icono_super.png'></ion-img>
-  </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+
+        <ion-title>
+            <ion-img class='icono' src='assets/icono_super.png'></ion-img>
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor ="let empleado of empleados" [routerLink]="['/moificar-empleado']">
-      <ion-avatar slot="start">
-        <img src="assets/user_icono.png" alt="">
-      </ion-avatar>
-      <ion-label>
-        {{empleado.nombre}} {{empleado.apellido}}
-        
-        
-      </ion-label>
-      <ion-button class="btn btn-success"  size="small" (click)="eliminarEmpleado(empleado.id)">-</ion-button>
-    </ion-item>
-  </ion-list>
-  <ion-button class="btn btn-success" expand="block" [routerLink]="['/agregar-empleado']">Agregar empleado</ion-button>
+    <ion-list>
+        <ion-item *ngFor="let empleado of empleados" [routerLink]="['/moificar-empleado',empleado.id]">
+            <ion-avatar slot="start">
+                <img src="assets/user_icono.png" alt="">
+            </ion-avatar>
+            <ion-label>
+                {{empleado.nombre}} {{empleado.apellido}}
+
+
+            </ion-label>
+            <ion-button class="btn btn-success" size="small" (click)="eliminarEmpleado(empleado.id)">-</ion-button>
+        </ion-item>
+    </ion-list>
+    <ion-button class="btn btn-success" expand="block" [routerLink]="['/agregar-empleado']">Agregar empleado</ion-button>
 </ion-content>
-
-

@@ -12,7 +12,6 @@ export class DatabaseService {
 
   constructor(private http: HttpClient) {}
 
-
   async sp_InsertSucursal(nombre: string) {
     return await this.http.post<any[]>('http://localhost:3000/sp_InsertSucursal',{nombre:nombre}).toPromise();
   }
@@ -28,8 +27,6 @@ export class DatabaseService {
   async updateSucursal(nombre: string) {
     return await this.http.post<any[]>('http://localhost:3000/updateSucursal',{nombre:nombre}).toPromise();
   }
-
-
 
   async sp_InsertCategoria(nombre: string) {
     return await this.http.post<any[]>('http://localhost:3000/sp_InsertCategoria',{nombre:nombre}).toPromise();
