@@ -48,13 +48,16 @@ app.get('/sp_selectSucursal', async function(req, res) {
 
 
 app.get('/sp_selectCategoria', async function(req, res) {
-    client.connect();
+    
+    /*client.connect();
 
     client.query(`select getAllCategorias()`, (err, results) => {
         console.log(err, results);
         res.send(results);
         client.end()
-    });
+    });*/
+    const response = await pool.query(`select getAllCategorias()`);
+    res.json(response.rows);
 });
 
 app.post('/sp_InsertArticulo', async function(req, res) {
@@ -65,25 +68,34 @@ app.post('/sp_InsertArticulo', async function(req, res) {
     const categoriaId = req.body.categoriaId;
     const sucursalId = req.body.sucursalId;
 
-    client.connect();
+    /*client.connect();
 
     client.query(`call sp_InsertArticulo(${nombre},${descripccion},${precio},${cantidad},${categoriaId},${sucursalId})`, (err, results) => {
         console.log(err, results);
         res.send(results);
         client.end()
-    });
+    });*/
+
+    const response = await pool.query(`call sp_InsertArticulo(${nombre},${descripccion},${precio},${cantidad},${categoriaId},${sucursalId})`);
+    res.json(response.rows);
+    
 });
 
 
-app.get('/sp_selectArticulo/:id', async function(req, res) {
+app.get('/sp_selectArticulo', async function(req, res) {
     const idv = req.body.id;
+
+    /*
     client.connect();
 
     client.query(`select getArticuloWhitNomb(${idv})`, (err, results) => {
         console.log(err, results);
         res.send(results);
         client.end()
-    });
+    });*/
+
+    const response = await pool.query(`select getArticuloWhitNomb(${idv})`);
+    res.json(response.rows);
 });
 
 
@@ -96,26 +108,35 @@ app.post('/sp_updateArticulo', async function(req, res) {
     const categoriaId = req.body.categoriaId;
     const sucursalId = req.body.sucursalId;
 
-    client.connect();
+    /*client.connect();
 
     client.query(`call sp_updateArticulo(${idv},${nombre},${descripccion},${precio},${cantidad},${categoriaId},${sucursalId})`, (err, results) => {
         console.log(err, results);
         res.json('Articulo actualizado');
         client.end()
-    });
+    });*/
+
+    const response = await pool.query(`call sp_updateArticulo(${idv},${nombre},${descripccion},${precio},${cantidad},${categoriaId},${sucursalId})`);
+    res.json(response.rows);
+
+    
 });
 
 
 app.post('/sp_deleteArticulo', async function(req, res) {
     const id = req.body.id;
 
-    client.connect();
+    /*client.connect();
 
     client.query(`call sp_deleteArticulo(${id})`, (err, results) => {
         console.log(err, results);
         res.send('Articulo borrado');
         client.end()
-    });
+    });*/
+
+    const response = await pool.query(`call sp_deleteArticulo(${id})`);
+    res.json(response.rows);
+    
 });
 
 
@@ -129,25 +150,31 @@ app.post('/sp_InsertUsuario', async function(req, res) {
     const cedula = req.body.cedula;
     const tipoId = req.body.tipoId;
 
-    client.connect();
+    /*client.connect();
 
     client.query(`call sp_InsertUsuario(${nombre},${apeliido},${contrasena},${correo},${direccionFisica},${nombreUsuario},${cedula},${tipoId})`, (err, results) => {
         console.log(err, results);
         res.send(results);
         client.end()
-    });
+    });*/
+
+    const response = await pool.query(`call sp_InsertUsuario(${nombre},${apeliido},${contrasena},${correo},${direccionFisica},${nombreUsuario},${cedula},${tipoId})`);
+    res.json(response.rows);
 });
 
 
 app.get('/sp_selectUsuario', async function(req, res) {
     const id = req.body.id;
-    client.connect();
+    /*client.connect();
 
     client.query(`select getUsusarioWhitId(${id})`, (err, results) => {
         console.log(err, results);
         res.send(results);
         client.end()
-    });
+    });*/
+
+    const response = await pool.query(`select getUsusarioWhitId(${id})`);
+    res.json(response.rows);
 });
 
 
@@ -162,13 +189,16 @@ app.post('/sp_updateUsuario', async function(req, res) {
     const cedula = req.body.cedula;
     const tipoId = req.body.tipoId;
 
-    client.connect();
+    /*client.connect();
 
     client.query(`call sp_updateUsuario(${id},${nombre},${apeliido},${contraseña},${correo},${direccionFisica},${nombreUsuario},${cedula},${tipoId})`, (err, results) => {
         console.log(err, results);
         res.send(results);
         client.end()
-    });
+    });*/
+
+    const response = await pool.query(`call sp_updateUsuario(${id},${nombre},${apeliido},${contraseña},${correo},${direccionFisica},${nombreUsuario},${cedula},${tipoId})`);
+    res.json(response.rows);
 
 });
 
@@ -176,13 +206,16 @@ app.post('/sp_updateUsuario', async function(req, res) {
 app.post('/sp_deleteUsuario', async function(req, res) {
     const id = req.body.id;
 
-    client.connect();
+    /*client.connect();
 
     client.query(`call sp_deleteUsuario(${id})`, (err, results) => {
         console.log(err, results);
         res.json('Empleado eliminado');
         client.end()
-    });
+    });*/
+
+    const response = await pool.query(`call sp_deleteUsuario(${id})`);
+    res.json(response.rows);
 });
 
 
@@ -191,33 +224,45 @@ app.post('/sp_InsertPedido', async function(req, res) {
     const estado = req.body.id;
     const precioTotal = req.body.precioTotal;
     const usuarioId = req.body.usuarioId;
+    /*
     client.connect();
     client.query(`call sp_InsertPedido(${estado},${precioTotal},${usuarioId})`, (err, results) => {
         console.log(err, results);
         res.json('Su pedido se a realizado');
         client.end()
-    });
+    });*/
+
+    const response = await pool.query(`call sp_InsertPedido(${estado},${precioTotal},${usuarioId})`);
+    res.json(response.rows);
 });
 
 
 app.get('/sp_selectPedidos', async function(req, res) {
-    client.connect();
+    /*client.connect();
 
     client.query(`select getAllPedidos()`, (err, results) => {
         console.log(err, results);
         res.send(results);
         client.end()
-    });
+    });*/
+
+    const response = await pool.query(`select getAllPedidos()`);
+    res.json(response.rows);
 });
 app.get('/sp_selectPedido', async function(req, res) {
     const id = req.body.id;
+
+    /*
     client.connect();
 
     client.query(`select getPedidoWhitId(${id})`, (err, results) => {
         console.log(err, results);
         res.json(results.rows);
         client.end()
-    });
+    });*/
+
+    const response = await pool.query(`select getPedidoWhitId(${id})`);
+    res.json(response.rows);
 });
 
 
@@ -225,35 +270,47 @@ app.post('/sp_deletePedido', async function(req, res) {
 
     const id = req.body.id;
 
-    client.connect();
+    /*client.connect();
 
     client.query(`call sp_deletePedido(${id})`, (err, results) => {
         console.log(err, results);
         res.json('Pedido cancelado');
         client.end()
-    });
+    });*/
+
+    const response = await pool.query(`call sp_deletePedido(${id})`);
+    res.json(response.rows);
 
 });
 
 
 app.get('/sp_selectArticuloXPedido', async function(req, res) {
-    client.connect();
+    /*client.connect();
 
     client.query(`select ArticuloXPedido()`, (err, results) => {
         console.log(err, results);
         res.send(results);
         client.end()
-    });
+    });*/
+
+    const response = await pool.query(`select ArticuloXPedido()`);
+    res.json(response.rows);
 });
 
 app.post('/sp_deleteArticuloXPedido', async function(req, res) {
     const id = req.body.id;
-    client.connect();
+    
+    
+    /*client.connect();
     client.query(`select deleteArticuloXPedido(${id})`, (err, results) => {
         console.log(err, results);
         res.send(results);
         client.end()
-    });
+    });*/
+
+    const response = await pool.query(`select deleteArticuloXPedido(${id})`);
+    res.json(response.rows);
+    
 });
 
 app.post('/seleccionarSucursal', async function(req, res) {
