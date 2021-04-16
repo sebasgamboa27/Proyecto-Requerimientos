@@ -20,7 +20,7 @@ client: Pool;
 const client = new Pool({
     user: 'postgres',
     host: 'localhost',
-    database: 'pruebas',
+    database: process.env.DATA_BASE,
     password: process.env.PASSWORD_DB,
     port: 5432,
 })
