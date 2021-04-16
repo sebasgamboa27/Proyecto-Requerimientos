@@ -2,13 +2,12 @@
 
 CREATE or replace PROCEDURE sp_InsertPedido(
 	_estado 			varchar(50),
-	_fecha 			TIMESTAMP,
 	_precioTotal		float,
 	_usuarioId		int 
 )
 LANGUAGE PLPGSQL AS $$
 BEGIN
-	if ((COALESCE(TRIM(_estado),'') = '') OR (_fecha IS NULL) OR (_precioTotal IS NULL)
+	if ((COALESCE(TRIM(_estado),'') = '')  OR (_precioTotal IS NULL)
 	   OR (_usuarioId IS NULL)) then
 		RAISE 'Error: Null parameter';
 	ELSIF NOT EXISTS(SELECT * FROM Usuario WHERE id = _usuarioId ) THEN
@@ -17,7 +16,8 @@ BEGIN
 		BEGIN
 			INSERT INTO Pedido VALUES
 			(_estado ,
-			_fecha ,
+			 True,
+			 NOW(),
 			_precioTotal,
 			_usuarioId
 			);
@@ -25,7 +25,7 @@ BEGIN
 		END;
 	END IF;
 END;$$
-
+         
 CREATE or replace PROCEDURE sp_selectPedido()
 LANGUAGE PLPGSQL AS $$
 BEGIN
