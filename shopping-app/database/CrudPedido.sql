@@ -49,33 +49,6 @@ RETURNS TABLE (
 	SELECT pe.id,pe.estado,pe.fecha ,pe.precioTotal,pe.usuarioId, U.nombreUsuario FROM Pedido pe, Usuario U where U.id = pe.usuarioId;	
 $$ LANGUAGE SQL;
 
-CREATE FUNCTION getPedidoWhitId(_id int) 
-RETURNS TABLE (
-	id 				int ,
-	estado 			bool,
-	fecha 			TIMESTAMP ,
-	precioTotal		float,
-	usuarioId		int,
-	nombreUsuario varchar(50)
-) AS $$
-declare 
-	aux TIMESTAMP;
-	begin
-	if exists(select * from Pedido where id = _id)then
-		select fecha into aux from Pedido where id = _id;
-	else
-		RAISE 'Error: Pedido no existe';
-	end if;
-	
-	if((Now() -  + (min * interval '5 minute')) < aux)then
-		return query SELECT pe.id,TRUE,pe.fecha ,pe.precioTotal,pe.usuarioId, U.nombreUsuario FROM Pedido pe, Usuario U where U.id = pe.usuarioId and pe.id = _id;	
-	else
-		return query SELECT pe.id,FALSE,pe.fecha ,pe.precioTotal,pe.usuarioId, U.nombreUsuario FROM Pedido pe, Usuario U where U.id = pe.usuarioId and pe.id = _id;
-	end if;
-	end;
-$$ LANGUAGE PLPGSQL;
-
-
 CREATE FUNCTION getPedidoWhitUserId(_userId int) 
 RETURNS TABLE (
 	id 				int ,
@@ -92,9 +65,9 @@ DECLARE
 		for PedidoRow in select * from Pedido pe where pe.usuarioId = _userId  
 		loop
 			if((Now() - (interval '5 minute')) < PedidoRow.fecha)then
-				return query SELECT pe.id,TRUE,pe.fecha ,pe.precioTotal,pe.usuarioId, U.nombreUsuario FROM Pedido pe, Usuario U where U.id = _userId ;	
+				return query SELECT pe.id,TRUE,pe.fecha ,pe.precioTotal,pe.usuarioId, U.nombreUsuario FROM Pedido pe, Usuario U where U.id = _userId and pe.id = PedidoRow.id;	
 			else
-				return query SELECT pe.id,FALSE,pe.fecha ,pe.precioTotal,pe.usuarioId, U.nombreUsuario FROM Pedido pe, Usuario U where U.id = _userId ;
+				return query SELECT pe.id,FALSE,pe.fecha ,pe.precioTotal,pe.usuarioId, U.nombreUsuario FROM Pedido pe, Usuario U where U.id = _userId and pe.id = PedidoRow.id;
 			end if;		
 		end loop;
 	end if;
