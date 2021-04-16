@@ -16,8 +16,8 @@ export class DatabaseService {
     return await this.http.post<any[]>('http://localhost:3000/sp_InsertSucursal',{nombre:nombre}).toPromise();
   }
 
-  async sp_selectSucursal() {
-    return await this.http.get<any[]>('http://localhost:3000/sp_selectSucursal').toPromise();
+sp_selectSucursal() {
+    return this.http.get('http://localhost:3000/sp_selectSucursal');
   }
 
   async sp_deleteSucursal(id:number) {

@@ -14,9 +14,17 @@ app.listen(3000, function() {
 });
 
 const { Pool, Client } = require('pg');
+client: Pool;
 
+/*const client = new Client({
+    user: 'postgres',
+    host: 'localhost',
+    database: 'Requerimientos',
+    password: '20001808',
+    port: 5432,
+})*/
 
-const client = new Client({
+const client = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'Requerimientos',
@@ -24,15 +32,18 @@ const client = new Client({
     port: 5432,
 })
 
+//client.connect()
 
 app.get('/sp_selectSucursal', async function(req, res) {
-    client.connect();
-
-    client.query(`select getAllSucursales()`, (err, results) => {
-        console.log(err, results);
-        res.json(results.rows);
-        client.end()
-    });
+    const response = await pool.query(`SELECT getallsucursales()`);
+    res.json(response.rows);
+    /*
+        client.query(`select getAllSucursales()`, (err, results) => {
+            console.log(err, results);
+            console.log(results.rows[0])
+            res.json(results);
+            client.end()
+        });*/
 });
 
 
@@ -247,13 +258,13 @@ app.post('/sp_deleteArticuloXPedido', async function(req, res) {
 
 app.post('/seleccionarSucursal', async function(req, res) {
     const id = req.body.sucursal;
-    process.env.SUCURSAL=id;
+    process.env.SUCURSAL = id;
 });
 
 app.post('/agregarAcarrito', async function(req, res) {
     const id = req.body.item;
     const cant = req.body.cant;
-    var element = {id: id, cantidad: cant};
+    var element = { id: id, cantidad: cant };
     process.env.CARRITO.push(element);
     res.json('Producto agregado');
 
@@ -261,9 +272,9 @@ app.post('/agregarAcarrito', async function(req, res) {
 
 app.post('/eliminarcarrito', async function(req, res) {
     const idv = req.body.item;
-    for(let i = 0; i < process.env.CARRITO.length; i++) {
-        if(process.env.CARRITO[i].id==idv){
-            process.env.CARRITO[i].cantidad = process.env.CARRITO[i].cantidad -1;
+    for (let i = 0; i < process.env.CARRITO.length; i++) {
+        if (process.env.CARRITO[i].id == idv) {
+            process.env.CARRITO[i].cantidad = process.env.CARRITO[i].cantidad - 1;
             res.json('Producto eliminado');
         }
     }
@@ -274,4 +285,3 @@ app.post('/vaciarcarrito', async function(req, res) {
     process.env.CARRITO = []
     res.json('Carrito vaciado');
 });
-

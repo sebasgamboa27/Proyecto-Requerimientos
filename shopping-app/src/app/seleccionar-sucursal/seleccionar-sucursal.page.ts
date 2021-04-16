@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import{DatabaseService} from '../services/database.service'
+
 @Component({
   selector: 'app-seleccionar-sucursal',
   templateUrl: './seleccionar-sucursal.page.html',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SeleccionarSucursalPage implements OnInit {
   sucursales:any=['San jose','Alajuela','Heredia','Guanacaste','Limon','Cartago','Puntarenas']
-  constructor() {}
-
+  suc:any
+  constructor(private base:DatabaseService) {}
   ngOnInit() {
+    this.base.sp_selectSucursal().subscribe((res)=>{
+      this.suc=res;
+    });
   }
 
 }
