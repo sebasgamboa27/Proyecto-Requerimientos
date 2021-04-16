@@ -22,7 +22,7 @@ CREATE TABLE TipoUsuario(
 );
 
 Create Table Usuario(
-	id 					int primary key,
+	id 					serial primary key,
 	nombre 				varchar(50),
 	apellido 			varchar(50),
 	contrasena 			varchar(50),
