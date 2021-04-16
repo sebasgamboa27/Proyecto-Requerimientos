@@ -8,26 +8,17 @@ import { DatabaseService } from 'src/app/services/database.service';
 })
 export class ListaEmpleadosPage implements OnInit {
 
-  empleados = [];
+  empleados :any;
 
-  constructor() { }
+  constructor(private base:DatabaseService) { }
 
-  ngOnInit() {
-    //LLAMAR AL SERVICIO
-    this.empleados =[{"id":1,
-                      "nombre" : 'Carlitos',
-                      "apellido" : 'Badilla',
-                      "NombreDeUsuario": 'cato',
-                    "cedula":'1176534' },
-                    {"id":2,
-                      "nombre" : 'Allison',
-                    "apellido" : 'Solano',
-                    "NombreDeUsuario": 'Allis',
-                  "cedula":'1179852' }]
+  async ngOnInit() {
+    this.empleados=await this.base.sp_selectSucursal();
+    console.log(this.empleados);
   }
   eliminarEmpleado(id){
-    //LLAMAR AL SERVICIO
     console.log(id)
   }
+  
 
 }
