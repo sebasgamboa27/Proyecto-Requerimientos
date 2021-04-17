@@ -15,7 +15,7 @@ import { DatabaseService } from '../services/database.service';
 export class Tab1Page {
   cate=[]
   Categories: Category[] = [];
-
+  categoria=""
   productos=[]
 
   constructor(public modalController: ModalController,private database: DatabaseService) {

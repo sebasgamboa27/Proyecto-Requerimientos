@@ -24,5 +24,9 @@
     <ion-label position="floating">Descripcion</ion-label>
     <ion-input class="form-control" type="text" [(ngModel)]="detalle.descripcion" name="descripcion"></ion-input>
 
+    <ion-select [(ngModel)]="categoria.nombre" placeholder="seleccione categoria">
+        <ion-select-option *ngFor="let cate of categorias">{{cate.Name}} </ion-select-option>
+    </ion-select>
+
     <button (click)="insertar()" class="btn btn-success">Agregar producto</button>
 </ion-content>

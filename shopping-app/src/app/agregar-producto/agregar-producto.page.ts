@@ -11,18 +11,22 @@ export class AgregarProductoPage implements OnInit {
     imagen:"",
     cantidad:0,
     precio:0,
-    descripcion:"",
-    categoria:0
+    descripcion:""
 
   }
+  categorias=[]
+  cate:any
   constructor(private base:DatabaseService) { }
-
-  ngOnInit() {
-
+  categoria={
+    nombre:"",
+    id:0
+  }
+  async ngOnInit() {
+    this.cate=await this.base.sp_selectCategoria()
   }
  
   async insertar(){
-    await this.base.sp_InsertArticulo(this.detalle.nombre, this.detalle.descripcion, this.detalle.precio, this.detalle.cantidad, this.detalle.categoria)
+    await this.base.sp_InsertArticulo(this.detalle.nombre, this.detalle.descripcion, this.detalle.precio, this.detalle.cantidad, this.categoria.id)
     
     this.detalle={
       nombre:"",
@@ -30,7 +34,6 @@ export class AgregarProductoPage implements OnInit {
       cantidad:0,
       precio:0,
       descripcion:"",
-      categoria:0
     }
 
 }
