@@ -219,13 +219,13 @@ app.post('/sp_updateUsuario', async function(req, res) {
     const id = req.body.id;
     const nombre = req.body.nombre;
     const apeliido = req.body.apellido;
-    const contrasena = req.body.contraseña;
+    const contrasena = req.body.contrasena;
     const correo = req.body.correo;
     const direccionFisica = req.body.direccionFisica;
     const nombreUsuario = req.body.nombreUsuario;
     const cedula = req.body.cedula;
     const tipoId = req.body.tipoId;
-
+    console.log(id,nombre,apeliido,contrasena,correo,direccionFisica,nombreUsuario,cedula,tipoId);
     /*client.connect();
 
     client.query(`call sp_updateUsuario(${id},${nombre},${apeliido},${contraseña},${correo},${direccionFisica},${nombreUsuario},${cedula},${tipoId})`, (err, results) => {

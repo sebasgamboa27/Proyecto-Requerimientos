@@ -29,7 +29,7 @@ export class MoificarEmpleadoPage implements OnInit {
       console.log(this.empleado);
       this.nombre=this.empleado[0].nombre;
       this.apellido=this.empleado[0].apellido;
-      this.ced=this.empleado[0].ced;
+      this.ced=this.empleado[0].cedula;
       this.correo=this.empleado[0].correo;
       this.usuario=this.empleado[0].nombreusuario;
       this.contra=this.empleado[0].contrasena;
@@ -37,6 +37,7 @@ export class MoificarEmpleadoPage implements OnInit {
   }
   async onSubmitTemplate(){
     console.log('Tomando datos del usuario')
+    console.log(this.id,this.nombre,this.apellido,this.contra,this.correo,this.dir,this.usuario,this.ced)
     await this.base.sp_updateUsuario(this.id,this.nombre,this.apellido,this.contra,this.correo,this.dir,this.usuario,this.ced,2)
     
   }

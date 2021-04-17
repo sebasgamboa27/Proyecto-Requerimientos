@@ -75,7 +75,7 @@ async sp_InsertUsuario(nombre: string,apellido: string,contraseña: string,corre
 
     cedula:number,tipoId:number) {
 
-    return await this.http.post<any[]>('http://localhost:3000/sp_updateUsuario',{id:id,nombre:nombre,apellido:apellido,contraseña:contrasena,correo:correo,
+    return await this.http.post<any[]>('http://localhost:3000/sp_updateUsuario',{id:id,nombre:nombre,apellido:apellido,contrasena:contrasena,correo:correo,
 
   direccionFisica:direccionFisica,nombreUsuario:nombreUsuario,cedula:cedula,tipoId:tipoId}).toPromise();
   }

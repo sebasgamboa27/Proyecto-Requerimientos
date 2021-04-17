@@ -12,9 +12,10 @@ export class DetalleArticuloEmpleadoPage implements OnInit {
   
     nombre:'';
     imagen:'';
-    cantidad:'';
-    precio:'';
+    cantidad:0;
+    precio:0;
     descripcion:'';
+    
 
   id:any;
   constructor(private activatedRoute:ActivatedRoute, private base:DatabaseService) { }
@@ -26,10 +27,10 @@ export class DetalleArticuloEmpleadoPage implements OnInit {
       console.log(this.id)
   }
 
-  async onSubmitTemplate(){
+  onSubmitTemplate(){
     console.log('Tomando datos del usuario')
-    console.log(String(this.nombre),this.imagen,this.cantidad,this.precio,this.descripcion)
-    //(this.nombre,this.imagen,this.cantidad,this.precio,this.descripcion)
+    console.log(this.nombre,this.imagen,this.cantidad,this.precio,this.descripcion)
+    //await this.base.sp_updateArticulo(this.nombre,this.descripcion,this.precio,this.cantidad,2)
     
   }
 
