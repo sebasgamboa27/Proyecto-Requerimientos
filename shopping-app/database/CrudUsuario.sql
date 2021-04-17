@@ -40,6 +40,7 @@ BEGIN
 END;$$
 
 
+
 CREATE OR REPLACE FUNCTION public.getallusuarios(
 	)
     RETURNS TABLE(id integer, nombre character varying, apellido character varying, contrasena character varying, correo character varying, direccionfisica character varying, nombreusuario character varying, cedula integer, tipoid integer) 
@@ -50,7 +51,8 @@ CREATE OR REPLACE FUNCTION public.getallusuarios(
 
 AS $BODY$
 begin
-	return query (SELECT U.id, U.nombre,U.apellido,U.contrasena,U.correo ,U.direccionFisica,U.nombreUsuario,U.cedula,U.tipoId from Usuario U);
+	return query (SELECT U.id, U.nombre,U.apellido,U.contrasena,U.correo ,U.direccionFisica,U.nombreUsuario,U.cedula,U.tipoId from Usuario U where U.tipoId=2);
+
 end;
 $BODY$;
 
