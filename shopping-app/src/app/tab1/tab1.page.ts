@@ -13,7 +13,7 @@ import { DatabaseService } from '../services/database.service';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-  cate=[]
+  cate:any
   Categories: Category[] = [];
   categoria=""
   productos=[]
@@ -23,11 +23,11 @@ export class Tab1Page {
 
   async ngOnInit(){
 
+    this.Categories=await this.database.sp_selectCategoria()
 
+    this.productos=await this.database.sp_selectArticulo()
 
-    this.cate=await this.database.sp_selectCategoria()
-    ///this.productos=await this.database.sp_selectArticulo()
-    console.log(this.cate);
+    console.log(this.Categories);
     console.log(this.productos);
   }
 

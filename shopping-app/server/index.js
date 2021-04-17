@@ -49,7 +49,7 @@ app.get('/sp_selectCategoria', async function(req, res) {
         res.send(results);
         client.end()
     });*/
-    const response = await client.query(`select getAllCategorias()`);
+    const response = await client.query(`select * from getAllCategorias()`);
     res.json(response.rows);
 });
 
@@ -87,7 +87,23 @@ app.get('/sp_selectArticulo', async function(req, res) {
         client.end()
     });*/
 
-    const response = await client.query(`select getArticuloWhitNomb(${idv})`);
+    const response = await client.query(`select * from getArticuloWhitNomb(${idv})`);
+    res.json(response.rows);
+});
+
+
+
+app.get('/getArticulos', async function(req, res) {
+    /*
+    client.connect();
+
+    client.query(`select getArticuloWhitNomb(${idv})`, (err, results) => {
+        console.log(err, results);
+        res.send(results);
+        client.end()
+    });*/
+
+    const response = await client.query(`select * from getallarticulos()`);
     res.json(response.rows);
 });
 
@@ -166,22 +182,22 @@ app.post('/sp_selectUsuario', async function(req, res) {
         client.end()
     });*/
 
-    const response = await client.query(`select getUsusarioWhitId(${id})`);
+    const response = await client.query(`select * from getUsusarioWhitId(${id})`);
     res.json(response.rows);
 });
 
 app.get('/getAllUsuarios', async function(req, res) {
 
-    const response = await client.query(`select getAllUsuarios()`);
+    const response = await client.query(`select * from getAllUsuarios()`);
     res.json(response.rows);
 });
 
 app.post('/getLoginUser', async function(req, res) {
     const nombreUsuario = req.body.nombreUsuario;
     const contrasena = req.body.contrasena;
-    
 
-    const response = await client.query(`select getLoginUser(${nombreUsuario},${contrasena})`);
+
+    const response = await client.query(`select * from getLoginUser(${nombreUsuario},${contrasena})`);
     res.json(response.rows);
 });
 
@@ -253,7 +269,7 @@ app.get('/sp_selectPedidos', async function(req, res) {
         client.end()
     });*/
 
-    const response = await client.query(`select getAllPedidos()`);
+    const response = await client.query(`select * from getAllPedidos()`);
     console.log(response.rows)
     res.json(response.rows);
 });
@@ -269,7 +285,7 @@ app.get('/sp_selectPedido', async function(req, res) {
         client.end()
     });*/
 
-    const response = await client.query(`select getPedidoWhitUserId(${id})`);
+    const response = await client.query(`select * from getPedidoWhitUserId(${id})`);
     res.json(response.rows);
 });
 
@@ -301,7 +317,7 @@ app.get('/sp_selectArticuloXPedido', async function(req, res) {
         client.end()
     });*/
 
-    const response = await client.query(`select ArticuloXPedido()`);
+    const response = await client.query(`select * from ArticuloXPedido()`);
     res.json(response.rows);
 });
 
@@ -316,7 +332,7 @@ app.post('/sp_deleteArticuloXPedido', async function(req, res) {
         client.end()
     });*/
 
-    const response = await client.query(`select deleteArticuloXPedido(${id})`);
+    const response = await client.query(`select * from deleteArticuloXPedido(${id})`);
     res.json(response.rows);
 
 });
