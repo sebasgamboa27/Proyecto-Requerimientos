@@ -66,13 +66,13 @@ async sp_InsertUsuario(nombre: string,apellido: string,contraseña: string,corre
     return await this.http.post<any[]>('http://localhost:3000/sp_deleteUsuario',{id:id}).toPromise();
   }
 
-  async sp_updateUsuario(id:number, nombre: string,apellido: string,contraseña: string,correo: string,categoriaId: number,direccionFisica:string,nombreUsuario:string,
+  async sp_updateUsuario(id:number, nombre: string,apellido: string,contrasena: string,correo: string,direccionFisica:string,nombreUsuario:string,
 
     cedula:number,tipoId:number) {
 
-    return await this.http.post<any[]>('http://localhost:3000/sp_updateUsuario',{id:id,nombre:nombre,apellido:apellido,contraseña:contraseña,correo:correo,
+    return await this.http.post<any[]>('http://localhost:3000/sp_updateUsuario',{id:id,nombre:nombre,apellido:apellido,contraseña:contrasena,correo:correo,
 
-    categoriaId:categoriaId,direccionFisica:direccionFisica,nombreUsuario:nombreUsuario,cedula:cedula,tipoId:tipoId}).toPromise();
+  direccionFisica:direccionFisica,nombreUsuario:nombreUsuario,cedula:cedula,tipoId:tipoId}).toPromise();
   }
 
   async getAllUsuarios() {

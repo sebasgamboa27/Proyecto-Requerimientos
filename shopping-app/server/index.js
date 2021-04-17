@@ -150,7 +150,7 @@ app.post('/sp_deleteArticulo', async function(req, res) {
 
 app.post('/sp_InsertUsuario', async function(req, res) {
     const nombre = req.body.nombre;
-    const apeliido = req.body.apeliido;
+    const apeliido = req.body.apellido;
     const contrasena = req.body.contraseña;
     const correo = req.body.correo;
     const direccionFisica = req.body.direccionFisica;
@@ -165,7 +165,7 @@ app.post('/sp_InsertUsuario', async function(req, res) {
         res.send(results);
         client.end()
     });*/
-
+    console.log(nombre,)
     const response = await client.query(`call sp_InsertUsuario('${nombre}','${apeliido}','${contrasena}','${correo}','${direccionFisica}','${nombreUsuario}',${cedula},${tipoId})`);
     res.json(response.rows);
 });
@@ -203,8 +203,8 @@ app.post('/getLoginUser', async function(req, res) {
 app.post('/sp_updateUsuario', async function(req, res) {
     const id = req.body.id;
     const nombre = req.body.nombre;
-    const apeliido = req.body.apeliido;
-    const contraseña = req.body.contraseña;
+    const apeliido = req.body.apellido;
+    const contrasena = req.body.contraseña;
     const correo = req.body.correo;
     const direccionFisica = req.body.direccionFisica;
     const nombreUsuario = req.body.nombreUsuario;
@@ -219,7 +219,7 @@ app.post('/sp_updateUsuario', async function(req, res) {
         client.end()
     });*/
 
-    const response = await client.query(`call sp_updateUsuario(${id},${nombre},${apeliido},${contraseña},${correo},${direccionFisica},${nombreUsuario},${cedula},${tipoId})`);
+    const response = await client.query(`call sp_updateUsuario(${id},'${nombre}','${apeliido}','${contrasena}','${correo}','${direccionFisica}','${nombreUsuario}',${cedula},${tipoId})`);
     res.json(response.rows);
 
 });
