@@ -23,7 +23,7 @@ export class OrdenesEmpleadoPage implements OnInit {
   
   async ngOnInit() {
     //LLAMAR AL SERVICIO QUE DA TODAS LAS ORDENES
-    this.ordenes = await this.base.sp_selectPedido()
+    this.ordenes = await this.base.sp_selectPedido();
   }
 
 }

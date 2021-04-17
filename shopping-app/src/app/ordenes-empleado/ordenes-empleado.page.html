@@ -11,11 +11,10 @@
   <ion-list>
     <ion-item *ngFor ="let orden of ordenes" >
       <ion-label>
-        CAMBIAR LO QUE LLAMA AL SERVICIO
-        {{orden.fecha}}
-        {{orden.nombre}} 
-        {{orden.apellido}}
-        {{orden.precioTotal}}
+        {{orden?.fecha}}
+        {{orden?.nombre}} 
+        {{orden?.apellido}}
+        {{orden?.precioTotal}}
       </ion-label>
     </ion-item>
 
