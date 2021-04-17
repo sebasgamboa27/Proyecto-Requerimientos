@@ -1,6 +1,6 @@
-------------//////////////////////////////////crud usuario
+		-----------//////////////////////////////////crud usuario
+
 CREATE or replace PROCEDURE sp_InsertUsuario(
-	_id 				int,
 	_nombre				varchar(50),
 	_apellido 			varchar(50),
 	_contrasena 		varchar(50),
@@ -12,25 +12,23 @@ CREATE or replace PROCEDURE sp_InsertUsuario(
 )
 LANGUAGE PLPGSQL AS $$
 BEGIN
-	if ((id is null) or (COALESCE(TRIM(_nombre),'') = '') OR (COALESCE(TRIM(_apellido),'') = '') OR 
+
+	if ( (COALESCE(TRIM(_nombre),'') = '') OR (COALESCE(TRIM(_apellido),'') = '') OR 
 		(COALESCE(TRIM(_contrasena ),'') = '') OR  (COALESCE(TRIM(_correo ),'') = '') OR 
 		(COALESCE(TRIM(_direccionFisica ),'') = '') OR
 		(COALESCE(TRIM(_nombreUsuario ),'') = '') OR (_cedula IS NULL) OR (_tipoId IS NULL)) then
-		RAISE 'Error: Null parameter';
-	ELSIF EXISTS(SELECT * FROM Usuario WHERE id = _id ) THEN
-		RAISE 'Error:that id already exists, please try another.';
-		
+		RAISE 'Error: Null parameter';		
 	ELSIF EXISTS(SELECT * FROM Usuario WHERE correo = _correo ) THEN
 		RAISE 'Error:that email already exists, please try another.';
 	ELSIF NOT EXISTS(SELECT * FROM TipoUsuario WHERE id = _tipoId) THEN
 		RAISE 'Error: categoria doesn''t exists.';
 	else
 		BEGIN
-			INSERT INTO Articulo VALUES
-			(_id ,
+			INSERT INTO Usuario (nombre,apellido ,contrasena,correo ,direccionFisica,nombreUsuario,cedula,tipoId) VALUES
+			( 
 			_nombre,
 			_apellido,
-			crypt(_contrasena, gen_salt('bf')),
+			_contrasena,
 			_correo,
 			_direccionFisica,
 			_nombreUsuario,
@@ -41,22 +39,7 @@ BEGIN
 	END IF;
 END;$$
 
-CREATE FUNCTION getAllUsuarios() 
-RETURNS TABLE (
-	id 					int,
-	nombre 				varchar(50),
-	apellido 			varchar(50),
-	contrasena 			varchar(50),
-	correo 				varchar(50),
-	direccionFisica 	varchar(50),
-	nombreUsuario		varchar(50),
-	cedula				int,
-	tipoId				int
-) AS $$
-	SELECT id, nombre,apellido,contrasena,correo ,direccionFisica,nombreUsuario,cedula,tipoId from Usuario;
-$$ LANGUAGE SQL;
-
-CREATE FUNCTION getUsusarioWhitId(_id int ) 
+CREATE OR REPLACE FUNCTION getAllUsuarios() 
 RETURNS TABLE (
 	id 					int,
 	nombre 				varchar(50),
@@ -69,20 +52,36 @@ RETURNS TABLE (
 	tipoId				int
 ) AS $$
 begin
-	IF NOT EXISTS(SELECT * FROM Usuario WHERE id = _id) THEN
+	return query SELECT U.id, U.nombre,U.apellido,U.contrasena,U.correo ,U.direccionFisica,U.nombreUsuario,U.cedula,U.tipoId from Usuario U;
+end;
+$$ LANGUAGE PLPGSQL;
+
+CREATE OR REPLACE FUNCTION getUsusarioWhitId(_id int ) 
+RETURNS TABLE (
+	id 					int,
+	nombre 				varchar(50),
+	apellido 			varchar(50),
+	contrasena 			varchar(50),
+	correo 				varchar(50),
+	direccionFisica 	varchar(50),
+	nombreUsuario		varchar(50),
+	cedula				int,
+	tipoId				int
+) AS $$
+begin
+	IF NOT EXISTS(SELECT * FROM Usuario U WHERE U.id = _id) THEN
 		RAISE 'Error: User doesnt exists.';
 	else
 		BEGIN
 			
-				RETURN QUERY SELECT id, nombre,apellido,contrasena,correo ,direccionFisica,nombreUsuario,cedula,tipoId from Usuario WHERE id = _id;
+				RETURN QUERY SELECT U.id, U.nombre,U.apellido,U.contrasena,U.correo ,U.direccionFisica,U.nombreUsuario,U.cedula,U.tipoId from Usuario U WHERE U.id = _id;
 		END;
 	END IF;
 	
 end;
 $$ LANGUAGE PLPGSQL;
 ////////////////////////
-
-CREATE FUNCTION getLoginUser(_UserName varchar(50), _password varchar(50)) 
+CREATE or replace FUNCTION getLoginUser(_UserName varchar (50), _Password varchar (50)) 
 RETURNS TABLE (
 	id 					int,
 	nombre 				varchar(50),
@@ -97,18 +96,18 @@ RETURNS TABLE (
 DECLARE
 	encryptedPassword VARCHAR(50);
 begin
-	IF NOT EXISTS(SELECT * FROM Usuario WHERE nombreUsuario = _UserName) THEN
+	IF NOT EXISTS(SELECT U.* FROM Usuario u WHERE u.nombreUsuario = _UserName) THEN
 		RAISE 'Error: User % doesn''t exists.', _UserName;
 	else
 		BEGIN
-			SELECT contrasena 
+			SELECT U.contrasena 
 			INTO encryptedPassword
-			FROM Usuario WHERE nombreUsuario = _UserName;
+			FROM Usuario U WHERE U.nombreUsuario = _UserName;
 			
-			IF (crypt(_password, encryptedPassword) = encryptedPassword) THEN
-				RETURN QUERY SELECT id, nombre,apellido,contrasena,correo ,direccionFisica,nombreUsuario,cedula,tipoId from Usuario WHERE nombreUsuario = _UserName;
+			IF (encryptedPassword = _Password) THEN
+				RETURN QUERY SELECT U.id, U.nombre,U.apellido,U.contrasena,U.correo ,U.direccionFisica,U.nombreUsuario,U.cedula,U.tipoId from Usuario U WHERE U.nombreUsuario = _UserName;
 			ELSE
-				RAISE 'Error: Incorrect password for user %.', _UserName;
+				Return ;
 			END IF;
 		END;
 	END IF;
@@ -136,18 +135,18 @@ BEGIN
 		(COALESCE(TRIM(_nombreUsuario ),'') = '') OR (_cedula IS NULL) OR (_tipoId IS NULL)) then
 		RAISE 'Error: Null parameter';
 		
-	ELSIF NOT EXISTS(SELECT * FROM Usuario WHERE id = _id) THEN
+	ELSIF NOT EXISTS(SELECT * FROM Usuario U WHERE U.id = _id) THEN
 		RAISE 'Error: USER doesn''t exists.';
 	
-	ELSIF NOT EXISTS(SELECT * FROM TipoUsuario WHERE id = _tipoId) THEN
+	ELSIF NOT EXISTS(SELECT * FROM TipoUsuario TP WHERE TP.id = _tipoId) THEN
 		RAISE 'Error: TipoUsuario doesn''t exists.';	
 	
-	ELSIF EXISTS(SELECT * FROM Usuario WHERE correo = _correo and id != _id ) THEN
+	ELSIF EXISTS(SELECT * FROM Usuario U WHERE U.correo = _correo and U.id != _id ) THEN
 		RAISE 'Error:that email is already in use in other instance, please try another.';
 	
 	ELSE
 		BEGIN
-			UPDATE Usuario
+			UPDATE Usuario U
 			SET
 			nombre = _nombre,
 			apellido = _apellido,
@@ -157,7 +156,7 @@ BEGIN
 			nombreUsuario= _nombreUsuario,
 			cedula = _cedula,
 			tipoId = _tipoId	 
-			WHERE id = _id;
+			WHERE U.id = _id;
 			COMMIT;
 		END;
 	END IF;
@@ -173,7 +172,7 @@ BEGIN
 			
 	ELSE
 		BEGIN
-			DELETE FROM Usuario WHERE id = _id;
+			DELETE FROM Usuario U WHERE U.id = _id;
 			COMMIT;
 		END;
 	END IF;
