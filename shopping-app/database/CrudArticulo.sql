@@ -150,3 +150,57 @@ BEGIN
 	END IF;
 END;$$
 
+                                                 
+                                                      
+ CREATE or replace PROCEDURE sp_sumarArticulo(
+	_id int,
+	_X INT
+)
+LANGUAGE PLPGSQL AS $$
+BEGIN
+    if ((_id IS NULL) OR (_X IS NULL)) then
+		RAISE 'Error: Null parameter';
+	ELSIF NOT EXISTS(SELECT AR.* FROM Articulo AR WHERE AR.id = _id) THEN
+		RAISE 'Error: Articulo doesn''t exists.';
+		
+	ELSE
+		BEGIN
+		IF _X>0 THEN 
+			UPDATE Articulo 
+			SET	
+			cantidad = cantidad + _X	 
+			WHERE id = _id;
+			COMMIT;
+			ELSE 
+				RAISE 'Error: only add positive parameters';
+		END IF;
+		END;
+	END IF;
+END;$$
+
+CREATE or replace PROCEDURE sp_restarArticulo(
+	_id int,
+	_X INT
+)
+LANGUAGE PLPGSQL AS $$
+BEGIN
+    if ((_id IS NULL) OR (_X IS NULL)) then
+		RAISE 'Error: Null parameter';
+	ELSIF NOT EXISTS(SELECT AR.* FROM Articulo AR WHERE AR.id = _id) THEN
+		RAISE 'Error: Articulo doesn''t exists.';
+		
+	ELSE
+		BEGIN
+		IF _X>0 THEN 
+			UPDATE Articulo 
+			SET	
+			cantidad = cantidad - _X	 
+			WHERE id = _id;
+			COMMIT;
+			ELSE 
+				RAISE 'Error: only subtract positive paramters';
+		END IF;
+		END;
+	END IF;
+END;$$
+
