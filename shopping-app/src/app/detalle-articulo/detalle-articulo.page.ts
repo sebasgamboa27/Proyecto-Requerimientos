@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from '../services/database.service';
-//private base:DatabaseService
+import {ActivatedRoute} from '@angular/router';
 @Component({
   selector: 'app-detalle-articulo',
   templateUrl: './detalle-articulo.page.html',
@@ -12,9 +12,16 @@ export class DetalleArticuloPage implements OnInit {
   "cantidad":"100",
 "Descripcion":"dasfdfd",
 "Precio":"2343"};
-  constructor() { }
+id:any
+  constructor(private base:DatabaseService,private activatedRoute:ActivatedRoute) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.activatedRoute.paramMap.subscribe(paramMap =>{
+      this.id=paramMap.get('id')
+      })
+
+    console.log(await this.base.getArticulo(this.id))
+    
   }
 
   agregarAlCarrito(){

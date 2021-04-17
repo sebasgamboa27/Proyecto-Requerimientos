@@ -11,7 +11,7 @@
     <ion-item>
         <ion-label>Categoria</ion-label>
         <ion-select [(ngModel)]="categoria" placeholder="seleccione categoria">
-            <ion-select-option *ngFor="let cate of Categories">{{cate.Name}} </ion-select-option>
+            <ion-select-option *ngFor="let cate of Categories">{{cate.nombre}} </ion-select-option>
         </ion-select>
         <button [routerLink]="['/categoria',categoria]" class="btn btn-success">Filtrar</button>
 

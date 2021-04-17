@@ -36,6 +36,10 @@ async enviarSucursal(id:number) {
     return await this.http.get<any[]>('http://localhost:3000/getArticulos').toPromise();
   }
 
+  async getArticulo(id) {
+    return await this.http.post<any[]>('http://localhost:3000/sp_selectArticulo',{id:id}).toPromise();
+  }
+
   async sp_deleteArticulo(id:number) {
     return await this.http.post<any[]>('http://localhost:3000/sp_deleteArticulo',{id:id}).toPromise();
   }

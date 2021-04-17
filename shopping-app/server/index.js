@@ -75,7 +75,7 @@ app.post('/sp_InsertArticulo', async function(req, res) {
 });
 
 
-app.get('/sp_selectArticulo', async function(req, res) {
+app.post('/sp_selectArticulo', async function(req, res) {
     const idv = req.body.id;
 
     /*
@@ -86,8 +86,7 @@ app.get('/sp_selectArticulo', async function(req, res) {
         res.send(results);
         client.end()
     });*/
-
-    const response = await client.query(`select * from getArticuloWhitNomb(${idv})`);
+    const response = await client.query(`select * from getarticulowhitnomb('${idv}')`);
     res.json(response.rows);
 });
 
