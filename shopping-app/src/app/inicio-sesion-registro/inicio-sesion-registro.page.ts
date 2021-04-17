@@ -58,12 +58,14 @@ export class InicioSesionRegistroPage implements OnInit {
     
   }
 
-  inicioSesion(){
+  async inicioSesion(){
     console.log('Logica para iniciar sesion',this.nombreUsuario,this.contrasena);
-    const valido = 'validacion en la base';
+    const usuario = await this.base.getLoginUser(this.nombreUsuario,this.contrasena);
+
+    console.log(usuario);
 
 
-    if(valido){
+    if(usuario != null){
       console.log('Usuario valido');
       this.router.navigateByUrl('/sucursal');
     }

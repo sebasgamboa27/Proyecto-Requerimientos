@@ -7,34 +7,38 @@ LANGUAGE PLPGSQL AS $$
 BEGIN
 	if ((COALESCE(TRIM(_nombre),'') = '')) then
 		RAISE 'Error: Null parameter';
-	ELSIF EXISTS(SELECT * FROM sucursal WHERE nombre = _nombre ) THEN
+	ELSIF EXISTS(SELECT S.* FROM sucursal S WHERE S.nombre = _nombre ) THEN
 		RAISE 'Error:that sucursal name is already in use, please try another.';
 	else
 		BEGIN
-			INSERT INTO Sucursal VALUES
+			INSERT INTO Sucursal (nombre) VALUES
 			(_nombre);
 			COMMIT;
 		END;
 	END IF;
 END;$$
 
-CREATE FUNCTION getAllSucursales() 
+CREATE OR REPLACE FUNCTION getAllSucursales() 
 RETURNS TABLE (
 	id    INT,
 	nombre  VARCHAR(50)
 	
 ) AS $$
-	SELECT id, nombre from Sucursal;
-$$ LANGUAGE SQL;
+begin
+	return query SELECT s.id, s.nombre from Sucursal s;
+end;
+$$ LANGUAGE PLPGSQL;
 
-CREATE FUNCTION getSucursal(_ID INT) 
+CREATE OR REPLACE FUNCTION getSucursal(_ID INT) 
 RETURNS TABLE (
 	id    INT,
 	nombre  VARCHAR(50)
 	
 ) AS $$
-	SELECT id, nombre from Sucursal where id = _id;
-$$ LANGUAGE SQL;
+begin 
+	return query SELECT S.id, S.nombre from Sucursal S where S.id = _id;
+end;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE or replace PROCEDURE updateSucursal(
@@ -45,15 +49,15 @@ BEGIN
     IF ((_id IS NULL) OR  (COALESCE(TRIM(_name),'') = '') ) THEN
 		RAISE 'Error: Null parameter.';
 		
-	ELSIF NOT EXISTS(SELECT * FROM Categoria WHERE id = _id) THEN
+	ELSIF NOT EXISTS(SELECT CA.* FROM Categoria CA WHERE CA.id = _id) THEN
 		RAISE 'Error: Sucursal not exists.';
-	ELSIF EXISTS(SELECT * FROM sucursal WHERE nombre = _name and id != _id) THEN
+	ELSIF EXISTS(SELECT S.* FROM sucursal S WHERE S.nombre = _name and S.id != _id) THEN
 		RAISE 'Error:that sucursal name is already in use in other instance, please try another.';
 	ELSE
 		BEGIN
-			UPDATE Sucursal
-			SET nombre = _name
-			WHERE id = _id;
+			UPDATE Sucursal S
+			SET S.nombre = _name
+			WHERE S.id = _id;
 			COMMIT;
 		END;
 	END IF;
@@ -64,12 +68,12 @@ CREATE or replace PROCEDURE sp_deleteSucursal(
 )
 LANGUAGE PLPGSQL AS $$
 BEGIN
-	IF NOT EXISTS(SELECT * FROM sucursal WHERE id = _id) THEN
+	IF NOT EXISTS(SELECT S.* FROM sucursal S WHERE S.id = _id) THEN
 		RAISE 'Error: Sucursal not exists.';
 			
 	ELSE
 		BEGIN
-			DELETE FROM sucursal WHERE id = _id;
+			DELETE FROM sucursal S WHERE S.id = _id;
 			COMMIT;
 		END;
 	END IF;

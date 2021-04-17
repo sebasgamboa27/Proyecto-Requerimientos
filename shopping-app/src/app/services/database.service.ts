@@ -114,7 +114,13 @@ async enviarSucursal(id:number) {
     categoriaId:categoriaId,direccionFisica:direccionFisica,nombreUsuario:nombreUsuario,cedula:cedula,tipoId:tipoId}).toPromise();
   }
 
+  async getAllUsuarios() {
+    return await this.http.get<any[]>('http://localhost:3000/getAllUsuarios').toPromise();
+  }
 
+  async getLoginUser(nombre:string,contrasena:string) {
+    return await this.http.post<any[]>('http://localhost:3000/getLoginUser',{nombreUsuario:nombre,contrasena:contrasena}).toPromise();
+  }
 
 
   async sp_InsertPedido(estado: string,fecha:string,precioTotal:number,usuarioId:number) {
