@@ -8,7 +8,7 @@
     <ion-content [fullscreen]="true">
         <ion-title>Productos</ion-title>
         <ion-list>
-            <ion-item [routerLink]="['/detalle-articulo-empleado',produ.nombre]" *ngFor="let produ of productos">
+            <ion-item *ngFor="let produ of productos" [routerLink]="['/detalle-articulo-empleado',produ.nombre]" >
                 <ion-avatar>
                     <img [src]="produ.imagen" />
                 </ion-avatar>
