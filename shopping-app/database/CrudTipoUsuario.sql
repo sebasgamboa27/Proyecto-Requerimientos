@@ -7,11 +7,11 @@ LANGUAGE PLPGSQL AS $$
 BEGIN
 	if ((COALESCE(TRIM(_nombre),'') = '')) then
 		RAISE 'Error: Null parameter';
-	ELSIF EXISTS(SELECT * FROM TipoUsuario WHERE nombre = _nombre ) THEN
+	ELSIF EXISTS(SELECT tp.* FROM TipoUsuario tp WHERE tp.nombre = _nombre ) THEN
 		RAISE 'Error:that TipoUsuario name is already in use, please try another.';
 	else
 		BEGIN
-			INSERT INTO TipoUsuario VALUES
+			INSERT INTO TipoUsuario(nombre) VALUES
 			(_nombre);
 			COMMIT;
 		END;
@@ -27,23 +27,28 @@ RETURNS TABLE (
 	SELECT id, nombre from TipoUsuario;
 $$ LANGUAGE SQL;
 
-CREATE FUNCTION getTipoUsuariosWhitNombre(_nombre VARCHAR(50) ) 
+CREATE OR REPLACE FUNCTION getTipoUsuariosWhitNombre(_nombre VARCHAR(50) ) 
 RETURNS TABLE (
 	id    INT,
 	nombre  VARCHAR(50)
 	
 ) AS $$
-	SELECT id, nombre from TipoUsuario where nombre = _nombre ;
-$$ LANGUAGE SQL;
+BEGIN
+	RETURN QUERY SELECT TU.id, TU.nombre from TipoUsuario TU where TU.nombre = _nombre ;
+END;
+$$ LANGUAGE PLPGSQL;
 
-CREATE FUNCTION getTipoUsuariosWhitId(_id int) 
+
+CREATE OR REPLACE FUNCTION getTipoUsuariosWhitId(_id int) 
 RETURNS TABLE (
 	id    INT,
 	nombre  VARCHAR(50)
 	
 ) AS $$
-	SELECT id, nombre from TipoUsuario where id = _id ;
-$$ LANGUAGE SQL;
+BEGIN
+	SELECT TP.id, TP.nombre from TipoUsuario TP where TP.id = _id ;
+END;
+$$ LANGUAGE PLPGSQL;
 
 CREATE or replace PROCEDURE updateTipoUsuario (
 	_id          INT,
@@ -53,9 +58,9 @@ BEGIN
     IF ((_id IS NULL) OR  (COALESCE(TRIM(_name),'') = '') ) THEN
 		RAISE 'Error: Null parameter.';
 		
-	ELSIF NOT EXISTS(SELECT * FROM TipoUsuario WHERE id = _id) THEN
+	ELSIF NOT EXISTS(SELECT tp.* FROM TipoUsuario tp WHERE tp.id = _id) THEN
 		RAISE 'Error: TipoUsuario not exists.';
-	ELSIF EXISTS(SELECT * FROM TipoUsuario WHERE nombre = _name and id != _id ) THEN
+	ELSIF EXISTS(SELECT tp.* FROM TipoUsuario tp WHERE tp.nombre = _name and tp.id != _id ) THEN
 		RAISE 'Error:that TipoUsuario name is already in use, please try another.';
 	
 	ELSE
@@ -73,13 +78,14 @@ CREATE or replace PROCEDURE sp_deleteTipoUsuario(
 )
 LANGUAGE PLPGSQL AS $$
 BEGIN
-	IF NOT EXISTS(SELECT * FROM TipoUsuario WHERE id = _id) THEN
+	IF NOT EXISTS(SELECT tp.* FROM TipoUsuario tp WHERE tp.id = _id) THEN
 		RAISE 'Error: Sucursal not exists.';
 			
 	ELSE
 		BEGIN
-			DELETE FROM TipoUsuario WHERE id = _id;
+			DELETE FROM TipoUsuario TP WHERE TP.id = _id;
 			COMMIT;
 		END;
 	END IF;
 END;$$
+
