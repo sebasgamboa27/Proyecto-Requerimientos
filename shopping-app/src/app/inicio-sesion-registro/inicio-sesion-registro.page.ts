@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-inicio-sesion-registro',
@@ -7,7 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class InicioSesionRegistroPage implements OnInit {
 
-  constructor() { }
+  constructor(private base: DatabaseService,private router: Router) { }
 
   @Input() nombreUsuario: string;
   @Input() contrasena: string;
@@ -48,12 +50,23 @@ export class InicioSesionRegistroPage implements OnInit {
   }
 
 
-  registrarUsuario(){
+  async registrarUsuario(){
     console.log('Logica para registrar',this.nombreUsuarioRegistro,this.contrasenaRegistro,this.nombre,this.apellido,this.email,this.dirFisica);
+    //const result = await this.base.sp_InsertUsuario(this.nombre,this.apellido,this.contrasenaRegistro,this.email,this.dirFisica,this.nombreUsuarioRegistro);
+
+    this.router.navigateByUrl('/sucursal');
+    
   }
 
   inicioSesion(){
     console.log('Logica para iniciar sesion',this.nombreUsuario,this.contrasena);
+    const valido = 'validacion en la base';
+
+
+    if(valido){
+      console.log('Usuario valido');
+      this.router.navigateByUrl('/sucursal');
+    }
   }
 
 }

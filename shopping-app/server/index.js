@@ -156,7 +156,7 @@ app.post('/sp_InsertUsuario', async function(req, res) {
 });
 
 
-app.get('/sp_selectUsuario', async function(req, res) {
+app.post('/sp_selectUsuario', async function(req, res) {
     const id = req.body.id;
     /*client.connect();
 
