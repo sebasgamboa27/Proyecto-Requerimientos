@@ -12,9 +12,6 @@ export class DatabaseService {
 
   constructor(private http: HttpClient) {}
 
-  async sp_InsertSucursal(nombre: string) {
-    return await this.http.post<any[]>('http://localhost:3000/sp_InsertSucursal',{nombre:nombre}).toPromise();
-  }
 
 async sp_selectSucursal() {
     return await this.http.get<JSON[]>('http://localhost:3000/sp_selectSucursal').toPromise();
@@ -23,29 +20,9 @@ async enviarSucursal(id:number) {
     return await this.http.post<JSON[]>('http://localhost:3000/seleccionarSucursal',{sucursal:id}).toPromise();
   }
 
-  async sp_deleteSucursal(id:number) {
-    return await this.http.post<any[]>('http://localhost:3000/sp_deleteSucursal',{id:id}).toPromise();
-  }
-  
-  
-  async updateSucursal(nombre: string) {
-    return await this.http.post<any[]>('http://localhost:3000/updateSucursal',{nombre:nombre}).toPromise();
-  }
-
-  async sp_InsertCategoria(nombre: string) {
-    return await this.http.post<any[]>('http://localhost:3000/sp_InsertCategoria',{nombre:nombre}).toPromise();
-  }
 
   async sp_selectCategoria() {
     return await this.http.get<any[]>('http://localhost:3000/sp_selectCategoria').toPromise();
-  }
-
-  async sp_deleteCategoria(id:number) {
-    return await this.http.post<any[]>('http://localhost:3000/sp_deleteCategoria',{id:id}).toPromise();
-  }
-
-  async updateCategoria(id:number,nombre: string) {
-    return await this.http.post<any[]>('http://localhost:3000/updateCategoria',{nombre:nombre,id:id}).toPromise();
   }
 
 
@@ -68,27 +45,7 @@ async enviarSucursal(id:number) {
 
     categoriaId:categoriaId,sucursalId:sucursalId}).toPromise();
   }
-
-
-  async sp_InsertTipoUsuario(nombre: string) {
-    return await this.http.post<any[]>('http://localhost:3000/sp_InsertTipoUsuario',{nombre:nombre}).toPromise();
-  }
-
-  async sp_selectTipoUsuario() {
-    return await this.http.get<any[]>('http://localhost:3000/sp_selectTipoUsuario').toPromise();
-  }
-
-  async sp_deleteTipoUsuario(id:number) {
-    return await this.http.post<any[]>('http://localhost:3000/sp_deleteCategoria',{id:id}).toPromise();
-  }
-
-  async updateTipoUsuario(id:number,nombre: string) {
-    return await this.http.post<any[]>('http://localhost:3000/updateTipoUsuario',{nombre:nombre,id:id}).toPromise();
-  }
-
-
-
-  async sp_InsertUsuario(nombre: string,apellido: string,contraseña: string,correo: string,direccionFisica:string,nombreUsuario:string,
+async sp_InsertUsuario(nombre: string,apellido: string,contraseña: string,correo: string,direccionFisica:string,nombreUsuario:string,
 
     cedula:number,tipoId:number) {
 
