@@ -122,7 +122,7 @@ async enviarSucursal(id:number) {
   }
 
   async sp_selectPedido() {
-    return await this.http.get<any[]>('http://localhost:3000/sp_selectPedido').toPromise();
+    return await this.http.get<any[]>('http://localhost:3000/sp_selectPedidos').toPromise();
   }
 
   async sp_deletePedido(id:number) {

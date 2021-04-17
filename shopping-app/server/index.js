@@ -240,6 +240,7 @@ app.get('/sp_selectPedidos', async function(req, res) {
     });*/
 
     const response = await client.query(`select getAllPedidos()`);
+    console.log(response.rows)
     res.json(response.rows);
 });
 app.get('/sp_selectPedido', async function(req, res) {
