@@ -3,11 +3,21 @@
         <ion-img class='icono' src='assets/icono_super.png'></ion-img>
         <ion-title>categoria</ion-title>
         <ion-buttons slot="start">
-            <ion-back-button defaultHref="/"></ion-back-button>
+            <ion-back-button defaultHref="/tabs"></ion-back-button>
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+    <ion-title>Productos</ion-title>
+    <ion-list>
+        <ion-item [routerLink]="['/detalle-articulo',produ.nombre]" *ngFor="let produ of productos">
+            <ion-avatar>
+                <img [src]="" />
+            </ion-avatar>
+            <ion-title>
+                {{produ.nombre}}
+            </ion-title>
+        </ion-item>
+    </ion-list>
 </ion-content>

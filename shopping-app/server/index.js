@@ -86,7 +86,8 @@ app.post('/sp_selectArticulo', async function(req, res) {
         res.send(results);
         client.end()
     });*/
-    const response = await client.query(`select * from getarticulowhitnomb('${idv}')`);
+
+    const response = await client.query(`select * from getarticulowhitnomb('${idv}',${process.env.SUCURSAL})`);
     res.json(response.rows);
 });
 
@@ -102,7 +103,21 @@ app.get('/getArticulos', async function(req, res) {
         client.end()
     });*/
 
-    const response = await client.query(`select * from getallarticulos()`);
+    const response = await client.query(`select * from getallarticulossucursal(${process.env.SUCURSAL})`);
+    res.json(response.rows);
+});
+
+app.post('/getArticulosCategoria', async function(req, res) {
+    /*
+    client.connect();
+
+    client.query(`select getArticuloWhitNomb(${idv})`, (err, results) => {
+        console.log(err, results);
+        res.send(results);
+        client.end()
+    });*/
+    const cate = req.body.categoria;
+    const response = await client.query(`select * from getarticulowhitnombcat('${cate.split(" ").join("")}',${process.env.SUCURSAL})`);
     res.json(response.rows);
 });
 
