@@ -14,7 +14,7 @@ CREATE TABLE Articulo(
 	cantidad	int,
 	categoriaId	int references Categoria,
 	sucursalId	int references Sucursal,
-  foto  varchar(100)
+  foto  varchar(1000)
 );
 
 CREATE TABLE TipoUsuario(
