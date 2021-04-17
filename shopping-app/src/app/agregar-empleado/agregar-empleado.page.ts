@@ -9,31 +9,23 @@ import{DatabaseService} from '../services/database.service'
 })
 export class AgregarEmpleadoPage implements OnInit {
   
-  empleado={
-    nombre:'',
-    apellido:'',
-    ced:0,
-    correo:'',
-    usuario:'',
-    contra:'',
-    dir:''
-  };
+  
+    nombre:'';
+    apellido:'';
+    ced:0;
+    correo:'';
+    usuario:'';
+    contra:'';
+    dir:'';
+  
   constructor(private base:DatabaseService) { }
 
   ngOnInit() {
   }
   async onSubmitTemplate(){
     console.log('Tomando datos del usuario')
-    console.log(this.empleado)
-    await this.base.sp_InsertUsuario(
-      this.empleado.nombre,
-      this.empleado.apellido,
-      this.empleado.contra,
-      this.empleado.correo,
-      this.empleado.dir,
-      this.empleado.usuario,
-      this.empleado.ced,
-      2)
+    console.log(String(this.nombre),this.apellido,this.contra,this.correo,this.dir,this.usuario,this.ced)
+    await this.base.sp_InsertUsuario(String(this.nombre),this.apellido,this.contra,this.correo,this.dir,this.usuario,this.ced,2)
     
   }
   

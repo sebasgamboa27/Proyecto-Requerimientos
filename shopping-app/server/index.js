@@ -156,7 +156,7 @@ app.post('/sp_InsertUsuario', async function(req, res) {
 });
 
 
-app.get('/sp_selectUsuario', async function(req, res) {
+app.post('/sp_selectUsuario', async function(req, res) {
     const id = req.body.id;
     /*client.connect();
 
@@ -240,6 +240,7 @@ app.get('/sp_selectPedidos', async function(req, res) {
     });*/
 
     const response = await client.query(`select getAllPedidos()`);
+    console.log(response.rows)
     res.json(response.rows);
 });
 app.get('/sp_selectPedido', async function(req, res) {

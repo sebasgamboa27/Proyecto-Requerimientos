@@ -9,8 +9,9 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor ="let orden of ordenes" [routerLink]="['/tabs']">
+    <ion-item *ngFor ="let orden of ordenes" >
       <ion-label>
+        CAMBIAR LO QUE LLAMA AL SERVICIO
         {{orden.fecha}}
         {{orden.nombre}} 
         {{orden.apellido}}

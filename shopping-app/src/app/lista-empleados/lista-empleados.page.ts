@@ -13,6 +13,7 @@ export class ListaEmpleadosPage implements OnInit {
   constructor(private base:DatabaseService) { }
 
   async ngOnInit() {
+    
     this.empleados=await this.base.sp_selectSucursal();
     console.log(this.empleados);
   }

@@ -97,8 +97,8 @@ async enviarSucursal(id:number) {
     direccionFisica:direccionFisica,nombreUsuario:nombreUsuario,cedula:cedula,tipoId:tipoId}).toPromise();
   }
 
-  async sp_selectUsuario() {
-    return await this.http.get<any[]>('http://localhost:3000/sp_selectUsuario').toPromise();
+  async sp_selectUsuario(id:number) {
+    return await this.http.post<any[]>('http://localhost:3000/sp_selectUsuario',{id:id}).toPromise();
   }
 
   async sp_deleteUsuario(id:number) {
@@ -122,7 +122,7 @@ async enviarSucursal(id:number) {
   }
 
   async sp_selectPedido() {
-    return await this.http.get<any[]>('http://localhost:3000/sp_selectPedido').toPromise();
+    return await this.http.get<any[]>('http://localhost:3000/sp_selectPedidos').toPromise();
   }
 
   async sp_deletePedido(id:number) {

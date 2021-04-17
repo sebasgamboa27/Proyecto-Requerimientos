@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import{DatabaseService} from '../services/database.service'
 
 @Component({
   selector: 'app-ordenes-empleado',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ordenes-empleado.page.scss'],
 })
 export class OrdenesEmpleadoPage implements OnInit {
-  ordenes = [{"id":12,
+  ordenes2 = [{"id":12,
               "fecha":"13/12/2000",
               "precioTotal":5000,
               "nombre":"Allison",
@@ -16,10 +17,13 @@ export class OrdenesEmpleadoPage implements OnInit {
               "precioTotal":2000,
               "nombre":"Carlos",
               "apellido":"Badilla"}]
-  constructor() { }
-
-  ngOnInit() {
+  ordenes:any;
+  constructor(private base:DatabaseService) { }
+  
+  
+  async ngOnInit() {
     //LLAMAR AL SERVICIO QUE DA TODAS LAS ORDENES
+    this.ordenes = await this.base.sp_selectPedido()
   }
 
 }
