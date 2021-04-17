@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from '../services/database.service';
 import {ActivatedRoute} from '@angular/router';
+import { CartService } from '../services/cart.service';
 @Component({
   selector: 'app-detalle-articulo',
   templateUrl: './detalle-articulo.page.html',
@@ -13,7 +14,7 @@ export class DetalleArticuloPage implements OnInit {
 "Descripcion":"dasfdfd",
 "Precio":"2343"};
 id:any
-  constructor(private base:DatabaseService,private activatedRoute:ActivatedRoute) { }
+  constructor(private base:DatabaseService,private activatedRoute:ActivatedRoute,private cart: CartService) { }
 
   async ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paramMap =>{
@@ -25,7 +26,8 @@ id:any
   }
 
   agregarAlCarrito(){
-    this.detallesArticulo.cantidad=this.detallesArticulo.cantidad-1
+    this.detallesArticulo.cantidad=this.detallesArticulo.cantidad-1;
+    this.cart.addItem(this.detallesArticulo);
   }
 
 }

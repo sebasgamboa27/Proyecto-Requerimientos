@@ -3,6 +3,7 @@ import { AlertController, LoadingController, ToastController } from '@ionic/angu
 import { Item } from '../Interfaces/Item';
 import { Order } from '../Interfaces/Order';
 import { CartService } from '../services/cart.service';
+import { DatabaseService } from '../services/database.service';
 import { OrderServiceService } from '../services/order-service.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class Tab2Page {
   totalPrice: number = this.cart.totalPrice;
 
   constructor(private cart: CartService,private orders:OrderServiceService,public alertController: AlertController,
-    public toastController: ToastController,public loadingController: LoadingController) {}
+    public toastController: ToastController,public loadingController: LoadingController,private base: DatabaseService) {}
 
   ngOnInit(){}
 
@@ -41,7 +42,8 @@ export class Tab2Page {
   }
 
   order(){
-    this.orders.addOrder(this.items,this.totalPrice)
+    this.orders.addOrder(this.items,this.totalPrice);
+    this.base.sp_InsertPedido('En proceso',Date.toString(),this.totalPrice,1);
     this.deleteAll();
   }
 
