@@ -8,8 +8,13 @@ import { DatabaseService } from 'src/app/services/database.service';
 })
 export class ListaEmpleadosPage implements OnInit {
 
-  empleados :any;
-
+  //empleados :any;
+  empleados =[{
+    "id":0,
+    "nombre":'Allison',
+    "apellido":'Solano'
+  }];
+  empleado_select:number;
   constructor(private base:DatabaseService) { }
 
   async ngOnInit() {
