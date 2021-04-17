@@ -8,13 +8,13 @@
         <ion-title>detalleArticulo</ion-title>
     </ion-toolbar>
 </ion-header>
-
-<ion-content>
-    <ion-img [src]="detallesArticulo.imagen"></ion-img>
-    <ion-title>{{detallesArticulo.nombre}} </ion-title>
-    <ion-title>Cantidad: {{detallesArticulo.cantidad}}</ion-title>
-    <ion-title>Precio: {{detallesArticulo.Precio}}</ion-title>
-    <ion-title>Descricion: {{detallesArticulo.Descripcion}}</ion-title>
+<ion-content *ngIf="det">
+    <ion-img [src]=""></ion-img>
+    <ion-title>{{detallesArticulo[0].nombre}} </ion-title>
+    <ion-title>Cantidad: {{detallesArticulo[0].cantidad}}</ion-title>
+    <ion-title>Precio: {{detallesArticulo[0].precio}}</ion-title>
+    <ion-title>Descricion: {{detallesArticulo[0].descripccion}}</ion-title>
+    <ion-title>Cantidad disponible: {{detallesArticulo[0].cantidad}}</ion-title>
 
     <button (click)="agregarAlCarrito()" class="btn btn-success">Agregar</button>
 </ion-content>
