@@ -170,6 +170,20 @@ app.post('/sp_selectUsuario', async function(req, res) {
     res.json(response.rows);
 });
 
+app.get('/getAllUsuarios', async function(req, res) {
+
+    const response = await client.query(`select getAllUsuarios()`);
+    res.json(response.rows);
+});
+
+app.post('/getLoginUser', async function(req, res) {
+    const nombreUsuario = req.body.nombreUsuario;
+    const contrasena = req.body.contrasena;
+    
+
+    const response = await client.query(`select getLoginUser(${nombreUsuario},${contrasena})`);
+    res.json(response.rows);
+});
 
 app.post('/sp_updateUsuario', async function(req, res) {
     const id = req.body.id;

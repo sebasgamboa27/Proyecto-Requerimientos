@@ -14,7 +14,8 @@ export class ListaEmpleadosPage implements OnInit {
 
   async ngOnInit() {
     
-    this.empleados=await this.base.sp_selectSucursal();
+    this.empleados = await this.base.getAllUsuarios();
+    
     console.log(this.empleados);
   }
   eliminarEmpleado(id){
