@@ -10,6 +10,7 @@ import { CartService } from '../services/cart.service';
 export class DetalleArticuloPage implements OnInit {
 detallesArticulo:any
 id:any
+det=false
   constructor(private base:DatabaseService,private activatedRoute:ActivatedRoute,private cart: CartService) { }
 
   async ngOnInit() {
@@ -19,7 +20,7 @@ id:any
 
     this.detallesArticulo=await this.base.getArticulo(this.id)
     if(this.detallesArticulo!=null){
-      //this.det=true
+      this.det=true
     }
     console.log(this.detallesArticulo)
     
