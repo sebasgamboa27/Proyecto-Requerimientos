@@ -13,7 +13,8 @@ CREATE TABLE Articulo(
 	precio	float,
 	cantidad	int,
 	categoriaId	int references Categoria,
-	sucursalId	int references Sucursal
+	sucursalId	int references Sucursal,
+  foto  varchar(100)
 );
 
 CREATE TABLE TipoUsuario(
