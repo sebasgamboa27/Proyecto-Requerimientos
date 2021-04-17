@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { DatabaseService } from '../services/database.service';
 @Component({
   selector: 'app-categoria',
   templateUrl: './categoria.page.html',
@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoriaPage implements OnInit {
 
-  constructor() { }
-
+  constructor(base:DatabaseService) { }
+  
   ngOnInit() {
   }
 
