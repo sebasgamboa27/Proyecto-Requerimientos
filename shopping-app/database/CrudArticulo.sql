@@ -6,7 +6,8 @@ CREATE or replace PROCEDURE sp_InsertArticulo(
 	_precio	float,
 	_cantidad	int,
 	_categoriaId	int, 
-	_sucursalId	int 
+	_sucursalId	int ,
+  	_foto  varchar(100)
 )
 LANGUAGE PLPGSQL AS $$
 BEGIN
@@ -21,8 +22,8 @@ BEGIN
 		RAISE 'Error: sucursal doesn''t exists.';
 	else
 		BEGIN
-			INSERT INTO Articulo(nombre,descripccion,precio,cantidad,categoriaId,sucursalId) VALUES
-			(_nombre, _descripccion, _precio, _cantidad, _categoriaId, _sucursalId);
+			INSERT INTO Articulo(nombre,descripccion,precio,cantidad,categoriaId,sucursalId,foto) VALUES
+			(_nombre, _descripccion, _precio, _cantidad, _categoriaId, _sucursalId,_foto );
 			COMMIT;
 		END;
 	END IF;
@@ -36,10 +37,11 @@ RETURNS TABLE (
 	precio	float,
 	cantidad	int,
 	categoriaId	int,
-	sucursalId	int
+	sucursalId	int,
+  foto  varchar(100)
 ) AS $$
 begin
-	return query SELECT  Ar.id,  Ar.nombre,  Ar.descripccion,  Ar.precio,  Ar.cantidad,  Ar.categoriaId,  Ar.sucursalId from Articulo Ar;
+	return query SELECT  Ar.id,  Ar.nombre,  Ar.descripccion,  Ar.precio,  Ar.cantidad,  Ar.categoriaId,  Ar.sucursalId, AR.foto from Articulo Ar;
 end;
 $$ LANGUAGE PLPGSQL;
 
@@ -52,10 +54,11 @@ RETURNS TABLE (
 	precio	float,
 	cantidad	int,
 	categoriaId	int,
-	sucursalId	int
+	sucursalId	int,
+  	foto  varchar(100)
 ) AS $$
 begin
-	return query SELECT Ar.id, Ar.nombre, Ar.descripccion, Ar.precio, Ar.cantidad, Ar.categoriaId, Ar.sucursalId from Articulo Ar where _idSucursal = Ar.sucursalId ;
+	return query SELECT Ar.id, Ar.nombre, Ar.descripccion, Ar.precio, Ar.cantidad, Ar.categoriaId, Ar.sucursalId , AR.foto from Articulo Ar where _idSucursal = Ar.sucursalId ;
 end;
 $$ LANGUAGE PLPGSQL;
 
@@ -69,10 +72,11 @@ RETURNS TABLE (
 	precio	float,
 	cantidad	int,
 	categoriaId	int,
-	sucursalId	int
+	sucursalId	int,
+  	foto  varchar(100)
 ) AS $$
 begin
-	return query SELECT Ar.id, Ar.nombre, Ar.descripccion, Ar.precio, Ar.cantidad, Ar.categoriaId, Ar.sucursalId from Articulo Ar where getCategoriaId(nombCat) = AR.categoriaId and Ar.sucursalId = _sucursalId ;
+	return query SELECT Ar.id, Ar.nombre, Ar.descripccion, Ar.precio, Ar.cantidad, Ar.categoriaId, Ar.sucursalId, AR.foto from Articulo Ar where getCategoriaId(nombCat) = AR.categoriaId and Ar.sucursalId = _sucursalId ;
 end;
 $$ LANGUAGE PLPGSQL;
 
@@ -84,10 +88,11 @@ RETURNS TABLE (
 	precio	float,
 	cantidad	int,
 	categoriaId	int,
-	sucursalId	int
+	sucursalId	int,
+  foto  varchar(100)
 ) AS $$
 begin 
-	return query SELECT AR.id, AR.nombre, AR.descripccion, AR.precio, AR.cantidad, AR.categoriaId, AR.sucursalId from Articulo AR where nombArt  = AR.nombre and AR.sucursalId = _sucursalId ;
+	return query SELECT AR.id, AR.nombre, AR.descripccion, AR.precio, AR.cantidad, AR.categoriaId, AR.sucursalId,AR.foto from Articulo AR where nombArt  = AR.nombre and AR.sucursalId = _sucursalId ;
 end;
 $$ LANGUAGE PLPGSQL;
 
@@ -99,7 +104,8 @@ CREATE or replace PROCEDURE sp_updateArticulo(
 	_precio	float,
 	_cantidad	int,
 	_categoriaId	int, 
-	_sucursalId	int 
+	_sucursalId	int ,
+  	_foto  varchar(100)
 )
 LANGUAGE PLPGSQL AS $$
 BEGIN
@@ -127,7 +133,8 @@ BEGIN
 			precio = _precio,	
 			cantidad = _cantidad,	
 			categoriaId = _categoriaId, 
-			sucursalId = _sucursalId	 
+			sucursalId = _sucursalId	,
+			foto = _foto
 			WHERE id = _id;
 			COMMIT;
 		END;
@@ -150,9 +157,7 @@ BEGIN
 	END IF;
 END;$$
 
-                                                 
-                                                      
- CREATE or replace PROCEDURE sp_sumarArticulo(
+CREATE or replace PROCEDURE sp_sumarArticulo(
 	_id int,
 	_X INT
 )
