@@ -39,35 +39,32 @@ BEGIN
 	END IF;
 END;$$
 
-CREATE OR REPLACE FUNCTION getAllUsuarios() 
-RETURNS TABLE (
-	id 					int,
-	nombre 				varchar(50),
-	apellido 			varchar(50),
-	contrasena 			varchar(50),
-	correo 				varchar(50),
-	direccionFisica 	varchar(50),
-	nombreUsuario		varchar(50),
-	cedula				int,
-	tipoId				int
-) AS $$
-begin
-	return query SELECT U.id, U.nombre,U.apellido,U.contrasena,U.correo ,U.direccionFisica,U.nombreUsuario,U.cedula,U.tipoId from Usuario U;
-end;
-$$ LANGUAGE PLPGSQL;
 
-CREATE OR REPLACE FUNCTION getUsusarioWhitId(_id int ) 
-RETURNS TABLE (
-	id 					int,
-	nombre 				varchar(50),
-	apellido 			varchar(50),
-	contrasena 			varchar(50),
-	correo 				varchar(50),
-	direccionFisica 	varchar(50),
-	nombreUsuario		varchar(50),
-	cedula				int,
-	tipoId				int
-) AS $$
+CREATE OR REPLACE FUNCTION public.getallusuarios(
+	)
+    RETURNS TABLE(id integer, nombre character varying, apellido character varying, contrasena character varying, correo character varying, direccionfisica character varying, nombreusuario character varying, cedula integer, tipoid integer) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
+AS $BODY$
+begin
+	return query (SELECT U.id, U.nombre,U.apellido,U.contrasena,U.correo ,U.direccionFisica,U.nombreUsuario,U.cedula,U.tipoId from Usuario U);
+end;
+$BODY$;
+
+ALTER FUNCTION public.getallusuarios()
+
+CREATE OR REPLACE FUNCTION public.getususariowhitid(
+	_id integer)
+    RETURNS TABLE(id integer, nombre character varying, apellido character varying, contrasena character varying, correo character varying, direccionfisica character varying, nombreusuario character varying, cedula integer, tipoid integer) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
+AS $BODY$
 begin
 	IF NOT EXISTS(SELECT * FROM Usuario U WHERE U.id = _id) THEN
 		RAISE 'Error: User doesnt exists.';
@@ -79,7 +76,7 @@ begin
 	END IF;
 	
 end;
-$$ LANGUAGE PLPGSQL;
+$BODY$;
 ////////////////////////
 CREATE or replace FUNCTION getLoginUser(_UserName varchar (50), _Password varchar (50)) 
 RETURNS TABLE (
