@@ -128,19 +128,19 @@ CREATE or replace PROCEDURE sp_updateUsuario(
 )
 LANGUAGE PLPGSQL AS $$
 BEGIN
-	if ((id is null) or (COALESCE(TRIM(_nombre),'') = '') OR (COALESCE(TRIM(_apellido),'') = '') OR 
+	if ((_id is null) or (COALESCE(TRIM(_nombre),'') = '') OR (COALESCE(TRIM(_apellido),'') = '') OR 
 		(COALESCE(TRIM(_contrasena ),'') = '') OR  (COALESCE(TRIM(_correo ),'') = '') OR 
 		(COALESCE(TRIM(_direccionFisica ),'') = '') OR
 		(COALESCE(TRIM(_nombreUsuario ),'') = '') OR (_cedula IS NULL) OR (_tipoId IS NULL)) then
 		RAISE 'Error: Null parameter';
 		
-	ELSIF NOT EXISTS(SELECT U.* FROM Usuario U WHERE U.id = _id) THEN
+	ELSIF NOT EXISTS(SELECT u.* FROM Usuario U WHERE U.id = _id) THEN
 		RAISE 'Error: USER doesn''t exists.';
 	
-	ELSIF NOT EXISTS(SELECT TP.* FROM TipoUsuario TP WHERE TP.id = _tipoId) THEN
+	ELSIF NOT EXISTS(SELECT tp.* FROM TipoUsuario TP WHERE TP.id = _tipoId) THEN
 		RAISE 'Error: TipoUsuario doesn''t exists.';	
 	
-	ELSIF EXISTS(SELECT U.* FROM Usuario U WHERE U.correo = _correo and U.id != _id ) THEN
+	ELSIF EXISTS(SELECT u.* FROM Usuario U WHERE U.correo = _correo and U.id != _id ) THEN
 		RAISE 'Error:that email is already in use in other instance, please try another.';
 	
 	ELSE
@@ -149,7 +149,7 @@ BEGIN
 			SET
 			nombre = _nombre,
 			apellido = _apellido,
-			contrasena = crypt(_contrasena, gen_salt('bf')),
+			contrasena = _contrasena,
 			correo = _correo,
 			direccionFisica = _direccionFisica,
 			nombreUsuario= _nombreUsuario,
@@ -160,7 +160,7 @@ BEGIN
 		END;
 	END IF;
 END;$$
-
+                                                                       
 CREATE or replace PROCEDURE sp_deleteUsuario( 
 	_id INT
 )
