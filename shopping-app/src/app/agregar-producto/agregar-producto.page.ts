@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { DatabaseService } from '../services/database.service';
 @Component({
   selector: 'app-agregar-producto',
   templateUrl: './agregar-producto.page.html',
@@ -7,26 +7,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AgregarProductoPage implements OnInit {
   detalle={
-    "nombre":"",
-    "imagen":"",
-    "cantidad":"",
-    "precio":"",
-    "descripcion":"",
+    nombre:"",
+    imagen:"",
+    cantidad:0,
+    precio:0,
+    descripcion:"",
+    categoria:0
 
   }
-  constructor() { }
+  constructor(private base:DatabaseService) { }
 
   ngOnInit() {
 
   }
+ 
+  async insertar(){
+    await this.base.sp_InsertArticulo(this.detalle.nombre, this.detalle.descripcion, this.detalle.precio, this.detalle.cantidad, this.detalle.categoria)
+    
+    this.detalle={
+      nombre:"",
+      imagen:"",
+      cantidad:0,
+      precio:0,
+      descripcion:"",
+      categoria:0
+    }
 
-  insertar(){
-    console.log(this.detalle)
-    this.detalle={"nombre":"",
-    "imagen":"",
-    "cantidad":"",
-    "precio":"",
-    "descripcion":"",}
-  }
-
+}
 }

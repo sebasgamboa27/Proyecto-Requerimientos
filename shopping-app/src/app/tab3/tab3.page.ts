@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Order } from '../Interfaces/Order';
 import { OrderServiceService } from '../services/order-service.service';
-
+import { DatabaseService } from '../services/database.service';
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
@@ -22,21 +22,10 @@ export class Tab3Page {
 "fecha":"12/04/200",
 "total":"434343",
 "cancelar":true}]
-  constructor(private orderser:OrderServiceService) {}
+  constructor(private base:DatabaseService) {}
 
-  ngOnInit(){
-    this.vorders = this.orderser.orders;
-    this.startTimer();
-  }
-
-  startTimer(){
-    var intervalVar =  setInterval(function(){
-      this.timer++;
-    }.bind(this),1000)
-  } 
-  
-  cancelOrder(order:Order){
-    this.orderser.cancelOrder(order);
+  async ngOnInit(){
+    
   }
 
   cancelarOrden(pedido:any){

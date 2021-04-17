@@ -49,10 +49,10 @@ async enviarSucursal(id:number) {
   }
 
 
-  async sp_InsertArticulo(nombre: string,descripcion: string,precio: number,cantidad: number,categoriaId: number,sucursalId:number) {
+  async sp_InsertArticulo(nombre: string,descripcion: string,precio: number,cantidad: number,categoriaId: number) {
     return await this.http.post<any[]>('http://localhost:3000/sp_InsertArticulo',{nombre:nombre,descripcion:descripcion,precio:precio,cantidad:cantidad,
 
-    categoriaId:categoriaId,sucursalId:sucursalId}).toPromise();
+    categoriaId:categoriaId}).toPromise();
   }
 
   async sp_selectArticulo() {
