@@ -135,18 +135,18 @@ BEGIN
 		(COALESCE(TRIM(_nombreUsuario ),'') = '') OR (_cedula IS NULL) OR (_tipoId IS NULL)) then
 		RAISE 'Error: Null parameter';
 		
-	ELSIF NOT EXISTS(SELECT * FROM Usuario U WHERE U.id = _id) THEN
+	ELSIF NOT EXISTS(SELECT U.* FROM Usuario U WHERE U.id = _id) THEN
 		RAISE 'Error: USER doesn''t exists.';
 	
-	ELSIF NOT EXISTS(SELECT * FROM TipoUsuario TP WHERE TP.id = _tipoId) THEN
+	ELSIF NOT EXISTS(SELECT TP.* FROM TipoUsuario TP WHERE TP.id = _tipoId) THEN
 		RAISE 'Error: TipoUsuario doesn''t exists.';	
 	
-	ELSIF EXISTS(SELECT * FROM Usuario U WHERE U.correo = _correo and U.id != _id ) THEN
+	ELSIF EXISTS(SELECT U.* FROM Usuario U WHERE U.correo = _correo and U.id != _id ) THEN
 		RAISE 'Error:that email is already in use in other instance, please try another.';
 	
 	ELSE
 		BEGIN
-			UPDATE Usuario U
+			UPDATE Usuario 
 			SET
 			nombre = _nombre,
 			apellido = _apellido,
@@ -156,7 +156,7 @@ BEGIN
 			nombreUsuario= _nombreUsuario,
 			cedula = _cedula,
 			tipoId = _tipoId	 
-			WHERE U.id = _id;
+			WHERE id = _id;
 			COMMIT;
 		END;
 	END IF;
