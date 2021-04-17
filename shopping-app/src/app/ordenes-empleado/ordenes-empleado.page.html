@@ -11,10 +11,10 @@
   <ion-list>
     <ion-item *ngFor ="let orden of ordenes" >
       <ion-label class="ion-text-wrap">
-        Fecha: {{orden?.fecha}}
-        Usuario: {{orden?.nombre}} 
+        Fecha: {{orden.fecha}}
+        Usuario: {{orden?.nombreusuario}} 
         {{orden?.apellido}}
-        Total: {{orden?.precioTotal}}
+        Total: {{orden.preciototal}}
       </ion-label>
     </ion-item>
 

@@ -14,7 +14,7 @@ export class ListaEmpleadosPage implements OnInit {
     "nombre":'Allison',
     "apellido":'Solano'
   }];
-  empleado_select:number;
+  empleado_select:string;
   constructor(private base:DatabaseService) { }
 
   async ngOnInit() {
@@ -23,8 +23,16 @@ export class ListaEmpleadosPage implements OnInit {
     
     console.log(this.empleados);
   }
-  eliminarEmpleado(id){
-    console.log(id)
+  async  eliminarEmpleado(){
+    for (const empleado of this.empleados) {  
+      console.log(empleado)
+      if(empleado.nombre == this.empleado_select){
+        console.log('LLAMANDOOOOOOOOOOO')
+        await this.base.sp_deleteUsuario(empleado.id);
+        break;
+      }
+    }
+    
   }
   
 
