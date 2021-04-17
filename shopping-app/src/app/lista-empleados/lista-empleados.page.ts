@@ -17,17 +17,18 @@ export class ListaEmpleadosPage implements OnInit {
   empleado_select:string;
   constructor(private base:DatabaseService) { }
 
-  async ngOnInit() {
+   ngOnInit() {
     
+    
+  }
+  async ionViewWillEnter(){
     this.empleados = await this.base.getAllUsuarios();
     
     console.log(this.empleados);
   }
   async  eliminarEmpleado(){
     for (const empleado of this.empleados) {  
-      console.log(empleado)
       if(empleado.nombre == this.empleado_select){
-        console.log('LLAMANDOOOOOOOOOOO')
         await this.base.sp_deleteUsuario(empleado.id);
         break;
       }
