@@ -1,7 +1,6 @@
 --///////////////////////////////CRUD Pedido
 
 CREATE or replace PROCEDURE sp_InsertPedido(
-	_estado 			varchar(50),
 	_precioTotal		float,
 	_usuarioId		int 
 )
@@ -10,12 +9,12 @@ BEGIN
 	if ((COALESCE(TRIM(_estado),'') = '')  OR (_precioTotal IS NULL)
 	   OR (_usuarioId IS NULL)) then
 		RAISE 'Error: Null parameter';
-	ELSIF NOT EXISTS(SELECT * FROM Usuario WHERE id = _usuarioId ) THEN
+	ELSIF NOT EXISTS(SELECT U.* FROM Usuario U WHERE U.id = _usuarioId ) THEN
 		RAISE 'Error: USER doesn''t exists..';
 	else
 		BEGIN
-			INSERT INTO Pedido VALUES
-			(_estado ,
+			INSERT INTO Pedido (estado ,fecha,precioTotal,usuarioId) VALUES
+			(
 			 True,
 			 NOW(),
 			_precioTotal,
@@ -25,19 +24,9 @@ BEGIN
 		END;
 	END IF;
 END;$$
-         
-CREATE or replace PROCEDURE sp_selectPedido()
-LANGUAGE PLPGSQL AS $$
-BEGIN
-	SELECT id,
-	estado,
-	fecha ,
-	precioTotal,
-	usuarioId FROM Pedido;
-END;$$
 
 
-CREATE FUNCTION getAllPedidos() 
+CREATE or replace FUNCTION getAllPedidos() 
 RETURNS TABLE (
 	id 				int ,
 	estado 			varchar(50),
@@ -46,8 +35,36 @@ RETURNS TABLE (
 	usuarioId		int,
 	nombreUsuario varchar(50)
 ) AS $$
-	SELECT pe.id,pe.estado,pe.fecha ,pe.precioTotal,pe.usuarioId, U.nombreUsuario FROM Pedido pe, Usuario U where U.id = pe.usuarioId;	
-$$ LANGUAGE SQL;
+begin
+	return query SELECT pe.id,pe.estado,pe.fecha ,pe.precioTotal,pe.usuarioId, U.nombreUsuario FROM Pedido pe, Usuario U where U.id = pe.usuarioId;	
+end; 
+$$ LANGUAGE PLPGSQL;
+
+CREATE or replace FUNCTION getPedidoWhitId(_id int) 
+RETURNS TABLE (
+	id 				int ,
+	estado 			bool,
+	fecha 			TIMESTAMP ,
+	precioTotal		float,
+	usuarioId		int,
+	nombreUsuario varchar(50)
+) AS $$
+declare 
+	aux TIMESTAMP;
+	begin
+	if exists(select PE.* from Pedido PE where PE.id = _id)then
+		select pe.fecha into aux from Pedido pe where pe.id = _id;
+	else
+		RAISE 'Error: Pedido no existe';
+	end if;
+	
+	if((Now() -  + (min * interval '5 minute')) < aux)then
+		return query SELECT pe.id,TRUE,pe.fecha ,pe.precioTotal,pe.usuarioId, U.nombreUsuario FROM Pedido pe, Usuario U where U.id = pe.usuarioId and pe.id = _id;	
+	else
+		return query SELECT pe.id,FALSE,pe.fecha ,pe.precioTotal,pe.usuarioId, U.nombreUsuario FROM Pedido pe, Usuario U where U.id = pe.usuarioId and pe.id = _id;
+	end if;
+	end;
+$$ LANGUAGE PLPGSQL;
 
 CREATE FUNCTION getPedidoWhitUserId(_userId int) 
 RETURNS TABLE (
@@ -87,10 +104,10 @@ BEGIN
 	   OR (_usuarioId IS NULL)) then
 		RAISE 'Error: Null parameter';
 		
-	ELSIF NOT EXISTS(SELECT * FROM Usuario WHERE id = _usuarioId) THEN
+	ELSIF NOT EXISTS(SELECT u.* FROM Usuario u WHERE u.id = _usuarioId) THEN
 		RAISE 'Error: usuario doesn''t exists.';
 	
-	ELSIF NOT EXISTS(SELECT * FROM Pedido WHERE id = _id) THEN
+	ELSIF NOT EXISTS(SELECT pe.* FROM Pedido pe WHERE pe.id = _id) THEN
 		RAISE 'Error:Pedido doesn''t exists.';	
 	
 	ELSE
@@ -112,12 +129,12 @@ CREATE or replace PROCEDURE sp_deletePedido(
 )
 LANGUAGE PLPGSQL AS $$
 BEGIN
-	IF NOT EXISTS(SELECT * FROM Pedido WHERE id = _id) THEN
+	IF NOT EXISTS(SELECT pe.* FROM Pedido pe WHERE pe.id = _id) THEN
 		RAISE 'Error: Articulo not exists.';
 			
 	ELSE
 		BEGIN
-			DELETE FROM Pedido WHERE id = _id;
+			DELETE FROM Pedido pe WHERE pe.id = _id;
 			COMMIT;
 		END;
 	END IF;
