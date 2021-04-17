@@ -8,11 +8,7 @@ import { CartService } from '../services/cart.service';
   styleUrls: ['./detalle-articulo.page.scss'],
 })
 export class DetalleArticuloPage implements OnInit {
-  detallesArticulo:any={"imagen":"https://as.com/deporteyvida/imagenes/2018/05/08/portada/1525772857_240454_1525773041_noticia_normal.jpg",
-  "nombre":"Leche",
-  "cantidad":"100",
-"Descripcion":"dasfdfd",
-"Precio":"2343"};
+detallesArticulo:any
 id:any
   constructor(private base:DatabaseService,private activatedRoute:ActivatedRoute,private cart: CartService) { }
 
@@ -21,7 +17,11 @@ id:any
       this.id=paramMap.get('id')
       })
 
-    console.log(await this.base.getArticulo(this.id))
+    this.detallesArticulo=await this.base.getArticulo(this.id)
+    if(this.detallesArticulo!=null){
+      //this.det=true
+    }
+    console.log(this.detallesArticulo)
     
   }
 

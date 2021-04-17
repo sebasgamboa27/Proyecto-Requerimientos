@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute} from '@angular/router';//usar este import para conseguir los parametros  de la url
+
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-detalle-articulo-empleado',
@@ -6,21 +9,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./detalle-articulo-empleado.page.scss'],
 })
 export class DetalleArticuloEmpleadoPage implements OnInit {
-  detalle={
-    "nombre":"ak-47",
-    "imagen":"https://as.com/deporteyvida/imagenes/2018/05/08/portada/1525772857_240454_1525773041_noticia_normal.jpg",
-    "cantidad":"34",
-    "precio":"2333",
-    "descripcion":"fdfndsfnds",
+  
+    nombre:'';
+    imagen:'';
+    cantidad:'';
+    precio:'';
+    descripcion:'';
 
-  }
-  constructor() { }
+  id:any;
+  constructor(private activatedRoute:ActivatedRoute, private base:DatabaseService) { }
 
   ngOnInit() {
+    this.activatedRoute.paramMap.subscribe(paramMap =>{//se consigue el id por medio de los parametros de la url
+      this.id=paramMap.get('articulo')
+      })
+      console.log(this.id)
   }
 
-  actualizar(){
-    console.log(this.detalle.nombre,this.detalle.imagen)
+  async onSubmitTemplate(){
+    console.log('Tomando datos del usuario')
+    console.log(String(this.nombre),this.imagen,this.cantidad,this.precio,this.descripcion)
+    //(this.nombre,this.imagen,this.cantidad,this.precio,this.descripcion)
+    
   }
 
 }
