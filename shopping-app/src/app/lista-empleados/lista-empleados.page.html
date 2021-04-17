@@ -11,8 +11,8 @@
     
     <ion-list>
         <ion-item>
-            <ion-input type="number" [(ngModel)]="empleado_select" >
-                <ion-button (click)="eliminarEmpleado(empleado.id)"  size="small"
+            <ion-input type="text" [(ngModel)]="empleado_select" >
+                <ion-button (click)="eliminarEmpleado()"  size="small"
               >Eliminar</ion-button></ion-input>
             
           </ion-item>
@@ -21,7 +21,7 @@
                 <img src="assets/user_icono.png" alt="">
             </ion-avatar>
             <ion-label>
-                {{empleado?.nombre}} {{empleado?.apellido}}
+                <h1>{{empleado?.nombre}} {{empleado?.apellido}}</h1>
 
             </ion-label>
         </ion-item>

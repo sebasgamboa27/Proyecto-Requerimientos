@@ -26,19 +26,23 @@ BEGIN
 END;$$
 
 
-CREATE or replace FUNCTION getAllPedidos() 
-RETURNS TABLE (
-	id 				int ,
-	estado 			varchar(50),
-	fecha 			TIMESTAMP ,
-	precioTotal		float,
-	usuarioId		int,
-	nombreUsuario varchar(50)
-) AS $$
+
+CREATE OR REPLACE FUNCTION public.getallpedidos(
+	)
+    RETURNS TABLE(id integer, estado boolean, fecha timestamp without time zone, preciototal double precision, usuarioid integer, nombreusuario character varying) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
+AS $BODY$
 begin
-	return query SELECT pe.id,pe.estado,pe.fecha ,pe.precioTotal,pe.usuarioId, U.nombreUsuario FROM Pedido pe, Usuario U where U.id = pe.usuarioId;	
-end; 
-$$ LANGUAGE PLPGSQL;
+	return query (SELECT pe.id,pe.estado,pe.fecha ,pe.precioTotal,pe.usuarioId, U.nombreUsuario FROM Pedido pe, Usuario U where U.id = pe.usuarioId);	
+end;
+$BODY$;
+
+ALTER FUNCTION public.getallpedidos()
+    OWNER TO postgres;
 
 CREATE or replace FUNCTION getPedidoWhitId(_id int) 
 RETURNS TABLE (

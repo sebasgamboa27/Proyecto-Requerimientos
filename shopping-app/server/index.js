@@ -166,7 +166,7 @@ app.post('/sp_InsertUsuario', async function(req, res) {
         client.end()
     });*/
 
-    const response = await client.query(`call sp_InsertUsuario(${nombre},${apeliido},${contrasena},${correo},${direccionFisica},${nombreUsuario},${cedula},${tipoId})`);
+    const response = await client.query(`call sp_InsertUsuario('${nombre}','${apeliido}','${contrasena}','${correo}','${direccionFisica}','${nombreUsuario}',${cedula},${tipoId})`);
     res.json(response.rows);
 });
 

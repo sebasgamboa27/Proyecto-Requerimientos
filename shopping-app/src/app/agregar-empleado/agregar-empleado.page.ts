@@ -25,7 +25,7 @@ export class AgregarEmpleadoPage implements OnInit {
   async onSubmitTemplate(){
     console.log('Tomando datos del usuario')
     console.log(String(this.nombre),this.apellido,this.contra,this.correo,this.dir,this.usuario,this.ced)
-    await this.base.sp_InsertUsuario(String(this.nombre),this.apellido,this.contra,this.correo,this.dir,this.usuario,this.ced,2)
+    await this.base.sp_InsertUsuario(this.nombre,this.apellido,this.contra,this.correo,this.dir,this.usuario,this.ced,2)
     
   }
   
